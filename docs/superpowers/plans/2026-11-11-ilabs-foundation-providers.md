@@ -16,7 +16,7 @@
 
 - Public repo `Sebas1705/ilabs`, MIT license; **no secrets in the repo** (local folder `Repos\Sebas1705\ilabs`). Do NOT create the GitHub repo or push: the owner asks first.
 - Repo content in English (code, docs, commits, PRs). Demo UI texts in es + en (string resources on Android, i18n dictionary on web).
-- Commits as the already-configured git identity (`sebss`), conventional commits, **no trailers** (no Co-Authored-By, no "Generated with").
+- Commits as the already-configured git identity, conventional commits, **no trailers** (no Co-Authored-By, no "Generated with").
 - Same results in Kotlin and TS = deterministic logic only, driven by scripted mock responses. Real LLM output is NOT in the contract.
 - Provider error taxonomy: `rate_limit`, `timeout`, `invalid_output`, `unavailable`.
 - Kotlin targets: Android + JVM only. One Gradle module per module, built from source, no Maven publishing.
@@ -69,7 +69,7 @@ Fixture file (`contracts/providers/<name>.json`):
 **Interfaces:**
 - Produces: workspace layout `modules/<name>/{kotlin,ts}`, `demos/{android,web}`, `contracts/<name>/`; pnpm workspace globs `modules/*/ts`, `demos/web`; Gradle includes added per task.
 
-- [ ] **Step 1: `git init` in `C:\Users\sebss\Documents\Repos\Sebas1705\ilabs` (default branch `main`); keep the existing `docs/` files.**
+- [ ] **Step 1: `git init` in `Repos/Sebas1705/ilabs` (default branch `main`); keep the existing `docs/` files.**
 - [ ] **Step 2: Create the files above.** README (English): purpose of iLabs, the layout, "no keys needed", link to the design spec. ADR 0001 records "contracts first, deterministic only" using the `docs-conventions` skill format.
 - [ ] **Step 3: Verify**
   Run: `pnpm install` → Expected: succeeds with an empty workspace.

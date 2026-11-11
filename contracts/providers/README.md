@@ -31,3 +31,16 @@ Fixture file (`contracts/providers/<name>.json`):
 - `sleeps` lists every `sleep(ms)` call in order, after clamping. There is no sleep after the final failed attempt.
 - `retryAfterMs` is "present" when it is not null/absent: `0` counts as present and yields a wait of `0`, not the exponential delay. Negative values are clamped to `0`.
 - `expect.result` errors: compare `error.kind` only, plus `error.retryAfterMs` only if the expected error specifies it.
+- Non-provider exceptions (anything that is not a `ProviderError` / `ProviderException`) are rethrown unchanged by `RetryingProvider` and `FallbackProvider`: never mapped, never retried, and `FallbackProvider` does not move on to the next provider.
+
+## Option preconditions
+
+`RetryingProvider` validates its options when constructed: `maxAttempts >= 1`, `baseDelayMs >= 0` and `maxDelayMs >= 0`. A violation throws `RangeError` (TypeScript) or `IllegalArgumentException` via `require` (Kotlin). All three are integer milliseconds (`maxAttempts` an integer count); fixture numbers must be integers.
+
+## Malformed fixtures
+
+`runFixture` validates a fixture before running it and fails with the explicit error `invalid fixture: <reason>` (an `Error` in TypeScript, an `IllegalStateException` in Kotlin) when:
+
+- `setup.kind` is neither `retry` nor `fallback`: `unknown setup kind: <kind>`
+- a `retry` setup has no providers: `retry setup needs a provider`
+- a script entry has neither `response` nor `error`: `script entry <n> of provider <id> has neither response nor error` (`n` is 1-based)
