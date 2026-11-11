@@ -7,3 +7,6 @@ local.properties
 dist/
 *.log
 .env
+.kotlin/
+*.iml
+.vscode/

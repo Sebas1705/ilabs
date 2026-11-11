@@ -10,7 +10,7 @@ kotlin {
     jvm()
 
     android {
-        namespace = "dev.ilabs.providers"
+        namespace = "es.sebas1705.ilabs.providers"
         compileSdk = 36
         minSdk = 24
 

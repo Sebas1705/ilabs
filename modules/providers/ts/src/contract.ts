@@ -30,8 +30,26 @@ export interface FixtureRun {
   events: FixtureEvent[];
 }
 
+function invalid(reason: string): never {
+  throw new Error(`invalid fixture: ${reason}`);
+}
+
+function validateFixture(fixture: Fixture): void {
+  const kind: string = fixture.setup.kind;
+  if (kind !== "retry" && kind !== "fallback") invalid(`unknown setup kind: ${kind}`);
+  if (kind === "retry" && fixture.providers.length === 0) invalid("retry setup needs a provider");
+  for (const p of fixture.providers) {
+    p.script.forEach((e, i) => {
+      if (e.response === undefined && e.error === undefined) {
+        invalid(`script entry ${i + 1} of provider ${p.id} has neither response nor error`);
+      }
+    });
+  }
+}
+
 /** Runs a contract fixture with a recording sleep (no real waiting). Browser-safe. */
 export async function runFixture(fixture: Fixture): Promise<FixtureRun> {
+  validateFixture(fixture);
   const events: FixtureEvent[] = [];
   const sleeps: number[] = [];
   const calls: Record<string, number> = {};

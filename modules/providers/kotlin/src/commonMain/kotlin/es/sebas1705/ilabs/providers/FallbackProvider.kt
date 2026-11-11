@@ -1,4 +1,4 @@
-package dev.ilabs.providers
+package es.sebas1705.ilabs.providers
 
 /** Tries providers in order; `invalid_output` stops the chain immediately. */
 class FallbackProvider(private val providers: List<Provider>) : Provider {

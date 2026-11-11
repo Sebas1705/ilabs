@@ -12,7 +12,11 @@ export class RetryingProvider implements Provider {
   constructor(
     private readonly inner: Provider,
     private readonly opts: RetryOptions,
-  ) {}
+  ) {
+    if (!(opts.maxAttempts >= 1)) throw new RangeError("maxAttempts must be >= 1");
+    if (!(opts.baseDelayMs >= 0)) throw new RangeError("baseDelayMs must be >= 0");
+    if (!(opts.maxDelayMs >= 0)) throw new RangeError("maxDelayMs must be >= 0");
+  }
 
   get id(): string {
     return this.inner.id;

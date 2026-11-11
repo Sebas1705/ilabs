@@ -1,4 +1,4 @@
-package dev.ilabs.providers
+package es.sebas1705.ilabs.providers
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -56,8 +56,24 @@ private val fixtureJson = Json { ignoreUnknownKeys = true }
 
 fun parseFixture(json: String): Fixture = fixtureJson.decodeFromString(Fixture.serializer(), json)
 
+private fun invalid(reason: String): Nothing = error("invalid fixture: $reason")
+
+private fun validateFixture(fixture: Fixture) {
+    val kind = fixture.setup.kind
+    if (kind != "retry" && kind != "fallback") invalid("unknown setup kind: $kind")
+    if (kind == "retry" && fixture.providers.isEmpty()) invalid("retry setup needs a provider")
+    for (p in fixture.providers) {
+        p.script.forEachIndexed { i, e ->
+            if (e.response == null && e.error == null) {
+                invalid("script entry ${i + 1} of provider ${p.id} has neither response nor error")
+            }
+        }
+    }
+}
+
 /** Runs a contract fixture with a recording sleep (no real waiting). */
 suspend fun runFixture(fixture: Fixture): FixtureOutcome {
+    validateFixture(fixture)
     val events = mutableListOf<Event>()
     val sleeps = mutableListOf<Long>()
     val calls = LinkedHashMap<String, Int>()
@@ -93,7 +109,7 @@ suspend fun runFixture(fixture: Fixture): FixtureOutcome {
             RetryOptions(setup.maxAttempts ?: 1, setup.baseDelayMs ?: 0, setup.maxDelayMs ?: 0, sleep),
         )
         "fallback" -> FallbackProvider(providers)
-        else -> error("unknown setup kind: ${setup.kind}")
+        else -> invalid("unknown setup kind: ${setup.kind}")
     }
 
     val result = try {

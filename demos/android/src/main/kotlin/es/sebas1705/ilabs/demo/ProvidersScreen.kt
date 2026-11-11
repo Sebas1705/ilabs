@@ -43,10 +43,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import dev.ilabs.providers.Fixture
-import dev.ilabs.providers.FixtureOutcome
-import dev.ilabs.providers.FixtureResult
-import dev.ilabs.providers.ScriptEntry
+import es.sebas1705.ilabs.providers.Fixture
+import es.sebas1705.ilabs.providers.FixtureOutcome
+import es.sebas1705.ilabs.providers.FixtureResult
+import es.sebas1705.ilabs.providers.ScriptEntry
 
 /** Readable width of the content column on tablets and foldables. */
 private val ContentMaxWidth: Dp = 720.dp

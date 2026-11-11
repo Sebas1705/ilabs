@@ -1,9 +1,9 @@
 package es.sebas1705.ilabs.demo
 
 import androidx.lifecycle.SavedStateHandle
-import dev.ilabs.providers.ErrorKind
-import dev.ilabs.providers.Event
-import dev.ilabs.providers.FixtureResult
+import es.sebas1705.ilabs.providers.ErrorKind
+import es.sebas1705.ilabs.providers.Event
+import es.sebas1705.ilabs.providers.FixtureResult
 import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

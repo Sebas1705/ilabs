@@ -1,4 +1,4 @@
-package dev.ilabs.providers
+package es.sebas1705.ilabs.providers
 
 class RetryOptions(
     val maxAttempts: Int,
@@ -9,6 +9,12 @@ class RetryOptions(
 
 /** Retries `rate_limit` and `timeout` with exponential backoff; sleeps only between attempts. */
 class RetryingProvider(private val inner: Provider, private val opts: RetryOptions) : Provider {
+    init {
+        require(opts.maxAttempts >= 1) { "maxAttempts must be >= 1" }
+        require(opts.baseDelayMs >= 0) { "baseDelayMs must be >= 0" }
+        require(opts.maxDelayMs >= 0) { "maxDelayMs must be >= 0" }
+    }
+
     override val id: String get() = inner.id
 
     override suspend fun complete(req: CompletionRequest): CompletionResponse {

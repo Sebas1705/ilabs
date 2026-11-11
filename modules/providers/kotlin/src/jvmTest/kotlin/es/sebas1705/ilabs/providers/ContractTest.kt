@@ -1,4 +1,4 @@
-package dev.ilabs.providers
+package es.sebas1705.ilabs.providers
 
 import kotlinx.coroutines.test.runTest
 import java.io.File

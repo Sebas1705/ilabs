@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.createSavedStateHandle
-import dev.ilabs.providers.Fixture
-import dev.ilabs.providers.FixtureOutcome
-import dev.ilabs.providers.parseFixture
-import dev.ilabs.providers.runFixture
+import es.sebas1705.ilabs.providers.Fixture
+import es.sebas1705.ilabs.providers.FixtureOutcome
+import es.sebas1705.ilabs.providers.parseFixture
+import es.sebas1705.ilabs.providers.runFixture
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
