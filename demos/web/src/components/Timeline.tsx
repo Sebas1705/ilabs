@@ -15,9 +15,10 @@ export function OutcomeBadge({ outcome }: { outcome: string }) {
   const tone = outcome === "ok" ? "ok" : outcome === "rate_limit" || outcome === "timeout" ? "warn" : "err";
   const key = OUTCOME_KEY[outcome];
   return (
-    <span className={`badge badge-${tone}`} title={key ? t(key) : undefined}>
+    <span className={`badge badge-${tone}`}>
       <span aria-hidden="true">{tone === "ok" ? "✓" : tone === "warn" ? "!" : "✕"}</span>
       <code>{outcome}</code>
+      {key && <span className="badge-label">{t(key)}</span>}
     </span>
   );
 }

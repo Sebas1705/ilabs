@@ -41,6 +41,7 @@ export const dictionary = {
     calls: "Calls per provider",
     noCalls: "No calls were made.",
     skip: "Skip to content",
+    runError: "Could not run the fixture",
     footer: "Fixtures live in contracts/providers and are shared with the Kotlin implementation.",
   },
   es: {
@@ -81,6 +82,7 @@ export const dictionary = {
     calls: "Llamadas por proveedor",
     noCalls: "No hubo llamadas.",
     skip: "Saltar al contenido",
+    runError: "No se pudo ejecutar el escenario",
     footer: "Los escenarios viven en contracts/providers y se comparten con la implementación de Kotlin.",
   },
 } as const;

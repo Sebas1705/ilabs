@@ -116,13 +116,20 @@ function Page({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
   const t = useT();
   const [name, setName] = useState(fixtures[0]?.name ?? "");
   const [run, setRun] = useState<FixtureRun | null>(null);
+  const [runError, setRunError] = useState<string | null>(null);
   const [theme, setTheme] = useState<Theme>(loadTheme);
   const fixture = fixtures.find((f) => f.name === name);
 
   useEffect(() => {
     let cancelled = false;
     setRun(null);
-    if (fixture) void runFixture(fixture).then((r) => !cancelled && setRun(r));
+    setRunError(null);
+    if (fixture) {
+      runFixture(fixture).then(
+        (r) => !cancelled && setRun(r),
+        (e: unknown) => !cancelled && setRunError(e instanceof Error ? e.message : String(e)),
+      );
+    }
     return () => {
       cancelled = true;
     };
@@ -160,7 +167,7 @@ function Page({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
                 <option value="dark">{t("themeDark")}</option>
               </select>
             </label>
-            <button type="button" className="btn" aria-label={t("languageSwitch")} onClick={() => setLang(other)}>
+            <button type="button" className="btn" aria-label={`${lang.toUpperCase()} → ${other.toUpperCase()}, ${t("languageSwitch")}`} onClick={() => setLang(other)}>
               {lang.toUpperCase()} {"→"} {other.toUpperCase()}
             </button>
           </div>
@@ -180,6 +187,11 @@ function Page({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
           </select>
         </label>
         {fixture && <Setup fixture={fixture} />}
+        {runError !== null && (
+          <p role="alert" className="card error">
+            {t("runError")}: {runError}
+          </p>
+        )}
         {run && (
           <>
             <section aria-labelledby="h-timeline" className="card">

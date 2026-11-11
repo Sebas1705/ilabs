@@ -44,7 +44,7 @@
     <string name="providers_no_calls">No calls were made.</string>
     <string name="providers_calls_entry">%1$s: %2$d</string>
     <string name="providers_calls_entry_spoken">%1$s: %2$d calls</string>
-    <string name="providers_footer">Fixtures live in contracts/providers and are shared with the Kotlin implementation.</string>
+    <string name="providers_footer">Fixtures live in contracts/providers and are shared with the TypeScript implementation.</string>
     <string name="providers_load_error">Could not load the fixtures: %1$s</string>
     <string name="providers_run_error">Could not run the fixture: %1$s</string>
 </resources>

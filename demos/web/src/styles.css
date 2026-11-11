@@ -134,3 +134,6 @@ select, .btn {
 @media (prefers-reduced-motion: no-preference) {
   .btn, select { transition: border-color 0.15s; }
 }
+
+.badge-label { font-weight: 500; }
+.error { background: var(--err-bg); color: var(--err-fg); border-color: var(--err-fg); }
