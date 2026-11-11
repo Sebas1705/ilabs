@@ -10,6 +10,9 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "*.gradle.kts"
+      - "gradle.properties"
+      - "gradlew"
+      - "gradlew.bat"
       - "gradle/**"
       - ".github/workflows/ci.yml"
   pull_request:
@@ -21,6 +24,9 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "*.gradle.kts"
+      - "gradle.properties"
+      - "gradlew"
+      - "gradlew.bat"
       - "gradle/**"
       - ".github/workflows/ci.yml"
 
@@ -44,7 +50,9 @@ jobs:
           node-version: lts/*
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm -r typecheck
       - run: pnpm -r test
+      - run: pnpm --filter @ilabs/demo-web build
 
   kotlin:
     name: Kotlin tests
@@ -57,4 +65,4 @@ jobs:
           distribution: temurin
           java-version: "21"
       - uses: gradle/actions/setup-gradle@v6
-      - run: ./gradlew :modules:providers:kotlin:jvmTest
+      - run: ./gradlew :modules:providers:kotlin:jvmTest :demos:android:testDebugUnitTest :demos:android:assembleDebug
