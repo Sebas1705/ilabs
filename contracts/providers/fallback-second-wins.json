@@ -1,0 +1,45 @@
+{
+  "name": "fallback-second-wins",
+  "setup": {
+    "kind": "fallback"
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "unavailable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "script": [
+        {
+          "response": "from b"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "text": "from b",
+      "provider": "b"
+    },
+    "sleeps": [],
+    "calls": {
+      "a": 1,
+      "b": 1
+    }
+  }
+}

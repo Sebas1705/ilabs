@@ -1,0 +1,42 @@
+{
+  "name": "mock-exhausted",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 3,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "unavailable"
+      }
+    },
+    "sleeps": [
+      100
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

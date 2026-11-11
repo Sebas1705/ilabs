@@ -1,0 +1,44 @@
+{
+  "name": "retry-then-success",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 3,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit"
+          }
+        },
+        {
+          "response": "ok"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "text": "ok",
+      "provider": "a"
+    },
+    "sleeps": [
+      100
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "retry-no-retry-on-invalid",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 3,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "invalid_output"
+          }
+        },
+        {
+          "response": "ok"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output"
+      }
+    },
+    "sleeps": [],
+    "calls": {
+      "a": 1
+    }
+  }
+}

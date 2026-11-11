@@ -1,0 +1,43 @@
+{
+  "name": "single-attempt",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 1,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit"
+          }
+        },
+        {
+          "response": "ok"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "rate_limit"
+      }
+    },
+    "sleeps": [],
+    "calls": {
+      "a": 1
+    }
+  }
+}

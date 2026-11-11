@@ -1,0 +1,24 @@
+{
+  "name": "fallback-empty",
+  "setup": {
+    "kind": "fallback"
+  },
+  "providers": [],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "unavailable"
+      }
+    },
+    "sleeps": [],
+    "calls": {}
+  }
+}

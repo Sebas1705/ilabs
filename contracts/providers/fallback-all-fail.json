@@ -1,0 +1,48 @@
+{
+  "name": "fallback-all-fail",
+  "setup": {
+    "kind": "fallback"
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit"
+          }
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "rate_limit"
+      }
+    },
+    "sleeps": [],
+    "calls": {
+      "a": 1,
+      "b": 1
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "retry-exhausted",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 3,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit"
+          }
+        },
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        },
+        {
+          "error": {
+            "kind": "rate_limit"
+          }
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "rate_limit"
+      }
+    },
+    "sleeps": [
+      100,
+      200
+    ],
+    "calls": {
+      "a": 3
+    }
+  }
+}

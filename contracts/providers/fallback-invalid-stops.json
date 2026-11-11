@@ -1,0 +1,46 @@
+{
+  "name": "fallback-invalid-stops",
+  "setup": {
+    "kind": "fallback"
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "invalid_output"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "script": [
+        {
+          "response": "from b"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output"
+      }
+    },
+    "sleeps": [],
+    "calls": {
+      "a": 1,
+      "b": 0
+    }
+  }
+}

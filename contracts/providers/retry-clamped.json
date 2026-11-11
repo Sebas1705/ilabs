@@ -1,0 +1,45 @@
+{
+  "name": "retry-clamped",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 3,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit",
+            "retryAfterMs": 99999
+          }
+        },
+        {
+          "response": "ok"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "text": "ok",
+      "provider": "a"
+    },
+    "sleeps": [
+      1000
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

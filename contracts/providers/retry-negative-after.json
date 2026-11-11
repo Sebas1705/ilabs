@@ -1,0 +1,45 @@
+{
+  "name": "retry-negative-after",
+  "setup": {
+    "kind": "retry",
+    "maxAttempts": 3,
+    "baseDelayMs": 100,
+    "maxDelayMs": 1000
+  },
+  "providers": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit",
+            "retryAfterMs": -50
+          }
+        },
+        {
+          "response": "ok"
+        }
+      ]
+    }
+  ],
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hi"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "text": "ok",
+      "provider": "a"
+    },
+    "sleeps": [
+      0
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}
