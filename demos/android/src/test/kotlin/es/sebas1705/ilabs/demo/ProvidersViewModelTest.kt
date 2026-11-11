@@ -97,4 +97,58 @@ class ProvidersViewModelTest {
             }
         }
     }
+
+    private fun realDocs(): List<String> = loader.load()
+
+    @Test
+    fun badFixtureAmongGoodOnesKeepsTheValidOnesAndReportsPartialError() {
+        val docs = realDocs() + "{ not json"
+        val vm = ProvidersViewModel(SavedStateHandle(), { docs })
+        val state = vm.uiState.value
+        assertEquals(13, state.names.size)
+        assertNotNull(state.loadError)
+        assertEquals(true, state.loadError!!.contains("#14"))
+        vm.select("retry-then-success")
+        assertEquals(FixtureResult.Success("ok", "a"), vm.uiState.value.outcome?.result)
+    }
+
+    @Test
+    fun badFixtureErrorNamesTheFixtureWhenItHasAName() {
+        val docs = realDocs() + """{"name": "broken-one", "setup": 5}"""
+        val state = ProvidersViewModel(SavedStateHandle(), { docs }).uiState.value
+        assertEquals(true, state.loadError!!.contains("broken-one"))
+    }
+
+    @Test
+    fun allFixturesBadGivesEmptyListAndError() {
+        val state = ProvidersViewModel(SavedStateHandle(), { listOf("x", "{}") }).uiState.value
+        assertEquals(emptyList<String>(), state.names)
+        assertEquals(null, state.selected)
+        assertNotNull(state.loadError)
+    }
+
+    @Test
+    fun loaderFailureGivesEmptyListAndError() {
+        val state = ProvidersViewModel(SavedStateHandle(), { error("assets missing") }).uiState.value
+        assertEquals(emptyList<String>(), state.names)
+        assertEquals(true, state.loadError!!.contains("assets missing"))
+    }
+
+    @Test
+    fun runnerFailureEndsInErrorStateWithoutCrashing() {
+        val vm = ProvidersViewModel(SavedStateHandle(), loader, runner = { throw RuntimeException("boom") })
+        val state = vm.uiState.value
+        assertEquals(null, state.outcome)
+        assertEquals(true, state.runError!!.contains("boom"))
+        assertEquals(13, state.names.size)
+    }
+
+    @Test
+    fun runnerCancellationPropagatesAndIsNotAnError() {
+        val vm = ProvidersViewModel(
+            SavedStateHandle(), loader,
+            runner = { throw kotlinx.coroutines.CancellationException("cancelled") },
+        )
+        assertEquals(null, vm.uiState.value.runError)
+    }
 }

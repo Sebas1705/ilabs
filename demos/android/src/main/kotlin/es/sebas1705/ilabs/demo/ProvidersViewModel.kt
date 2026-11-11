@@ -10,6 +10,7 @@ import dev.ilabs.providers.Fixture
 import dev.ilabs.providers.FixtureOutcome
 import dev.ilabs.providers.parseFixture
 import dev.ilabs.providers.runFixture
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,27 +28,42 @@ data class ProvidersUiState(
     val selected: String? = null,
     val fixture: Fixture? = null,
     val outcome: FixtureOutcome? = null,
+    /** Set when some or all fixture documents could not be loaded; the valid ones are still listed. */
     val loadError: String? = null,
+    /** Set when replaying the selected fixture failed. */
+    val runError: String? = null,
 )
 
 class ProvidersViewModel(
     private val savedState: SavedStateHandle,
     loader: FixtureLoader,
+    private val runner: suspend (Fixture) -> FixtureOutcome = ::runFixture,
 ) : ViewModel() {
     private val fixtures: Map<String, Fixture>
     private val _uiState = MutableStateFlow(ProvidersUiState())
     val uiState: StateFlow<ProvidersUiState> = _uiState.asStateFlow()
 
     init {
+        val problems = mutableListOf<String>()
         val parsed = try {
-            loader.load().map(::parseFixture).sortedBy { it.name }
+            loader.load().mapIndexedNotNull { index, doc ->
+                try {
+                    parseFixture(doc)
+                } catch (e: Exception) {
+                    problems += "${describe(index, doc)}: ${e.message ?: e::class.simpleName}"
+                    null
+                }
+            }.sortedBy { it.name }
         } catch (e: Exception) {
-            _uiState.value = ProvidersUiState(loadError = e.message ?: e::class.simpleName.orEmpty())
+            problems += e.message ?: e::class.simpleName.orEmpty()
             emptyList()
         }
         fixtures = parsed.associateBy { it.name }
+        _uiState.value = ProvidersUiState(
+            names = parsed.map(Fixture::name),
+            loadError = problems.takeIf { it.isNotEmpty() }?.joinToString("; "),
+        )
         if (parsed.isNotEmpty()) {
-            _uiState.update { it.copy(names = parsed.map(Fixture::name)) }
             val saved = savedState.get<String>(KEY_SELECTED)
             select(saved?.takeIf(fixtures::containsKey) ?: parsed.first().name)
         }
@@ -56,16 +72,30 @@ class ProvidersViewModel(
     fun select(name: String) {
         val fixture = fixtures[name] ?: return
         savedState[KEY_SELECTED] = name
-        _uiState.update { it.copy(selected = name, fixture = fixture, outcome = null) }
+        _uiState.update { it.copy(selected = name, fixture = fixture, outcome = null, runError = null) }
         viewModelScope.launch {
-            val outcome = runFixture(fixture)
-            // Ignore a run that finished after the user already picked another fixture.
-            _uiState.update { if (it.selected == name) it.copy(outcome = outcome) else it }
+            try {
+                val outcome = runner(fixture)
+                // Ignore a run that finished after the user already picked another fixture.
+                _uiState.update { if (it.selected == name) it.copy(outcome = outcome) else it }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                val message = "$name: ${e.message ?: e::class.simpleName}"
+                _uiState.update { if (it.selected == name) it.copy(runError = message) else it }
+            }
         }
+    }
+
+    /** Names a malformed document: its "name" field when one can be read, else its position (1-based). */
+    private fun describe(index: Int, doc: String): String {
+        val name = NAME_FIELD.find(doc)?.groupValues?.get(1)
+        return if (name != null) "$name (#${index + 1})" else "#${index + 1}"
     }
 
     companion object {
         private const val KEY_SELECTED = "selected"
+        private val NAME_FIELD = Regex("\"name\"\\s*:\\s*\"([^\"]+)\"")
 
         fun factory(loader: FixtureLoader): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

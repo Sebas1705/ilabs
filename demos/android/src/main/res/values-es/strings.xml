@@ -46,4 +46,5 @@
     <string name="providers_calls_entry_spoken">%1$s: %2$d llamadas</string>
     <string name="providers_footer">Los escenarios viven en contracts/providers y se comparten con la implementación de Kotlin.</string>
     <string name="providers_load_error">No se pudieron cargar los escenarios: %1$s</string>
+    <string name="providers_run_error">No se pudo ejecutar el escenario: %1$s</string>
 </resources>

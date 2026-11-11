@@ -113,6 +113,9 @@ private fun Header(state: ProvidersUiState, onSelect: (String) -> Unit) {
         state.loadError?.let {
             Text(stringResource(R.string.providers_load_error, it), color = MaterialTheme.colorScheme.error)
         }
+        state.runError?.let {
+            Text(stringResource(R.string.providers_run_error, it), color = MaterialTheme.colorScheme.error)
+        }
         if (state.names.isNotEmpty()) FixturePicker(state.names, state.selected.orEmpty(), onSelect)
     }
 }
