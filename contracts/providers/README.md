@@ -24,3 +24,10 @@ Fixture file (`contracts/providers/<name>.json`):
 ```
 
 `setup.kind` is `retry` (wraps `providers[0]`) or `fallback` (all `providers`, in order). `expect.result` is a response or `{"error": {"kind": ...}}`.
+
+## Fixture semantics
+
+- `calls[id]` is the number of `complete()` invocations on that provider, including invocations that fail because the script is exhausted. Every provider in `providers` has an entry, `0` if it was never called. Compare with exact equality (an empty `providers` list gives `{}`).
+- `sleeps` lists every `sleep(ms)` call in order, after clamping. There is no sleep after the final failed attempt.
+- `retryAfterMs` is "present" when it is not null/absent: `0` counts as present and yields a wait of `0`, not the exponential delay. Negative values are clamped to `0`.
+- `expect.result` errors: compare `error.kind` only, plus `error.retryAfterMs` only if the expected error specifies it.
