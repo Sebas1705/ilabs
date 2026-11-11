@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iLabs</string>
+
+    <string name="providers_title">Proveedores</string>
+    <string name="providers_subtitle">Reintentos y respaldo sobre proveedores de IA, reproducidos desde los escenarios del contrato compartido. Nada sale de tu dispositivo.</string>
+    <string name="providers_fixture">Escenario</string>
+    <string name="providers_fixture_picker">Escenario: %1$s. Toca dos veces para elegir otro.</string>
+    <string name="providers_setup">Configuración</string>
+    <string name="providers_kind">Estrategia</string>
+    <string name="providers_kind_retry">Reintento</string>
+    <string name="providers_kind_fallback">Respaldo</string>
+    <string name="providers_max_attempts">Intentos máximos</string>
+    <string name="providers_base_delay">Espera base</string>
+    <string name="providers_max_delay">Espera máxima</string>
+    <string name="providers_request">Petición</string>
+    <string name="providers_ms">%1$d ms</string>
+    <string name="providers_scripts">Guiones de los proveedores</string>
+    <string name="providers_script_hint">La llamada N consume la entrada N. Al acabar el guion, toda llamada falla con no disponible.</string>
+    <string name="providers_no_providers">Sin proveedores configurados.</string>
+    <string name="providers_empty_script">Guion vacío</string>
+    <string name="providers_entry_response">responde</string>
+    <string name="providers_entry_error">falla con</string>
+    <string name="providers_retry_after">reintentar tras %1$d ms</string>
+    <string name="providers_script_entry_response">%1$s, entrada %2$d: responde \"%3$s\"</string>
+    <string name="providers_script_entry_error">%1$s, entrada %2$d: falla con %3$s</string>
+    <string name="providers_timeline">Cronología</string>
+    <string name="providers_call_to">llamada</string>
+    <string name="providers_wait">espera</string>
+    <string name="providers_timeline_call">Paso %1$d: llamada a %2$s, %3$s</string>
+    <string name="providers_timeline_wait">Paso %1$d: espera de %2$d milisegundos</string>
+    <string name="providers_outcome_ok">correcta</string>
+    <string name="providers_outcome_rate_limit">límite de peticiones</string>
+    <string name="providers_outcome_timeout">tiempo agotado</string>
+    <string name="providers_outcome_invalid_output">salida no válida</string>
+    <string name="providers_outcome_unavailable">no disponible</string>
+    <string name="providers_outcome_label">%1$s (%2$s)</string>
+    <string name="providers_result">Resultado</string>
+    <string name="providers_answered_by">respondió %1$s</string>
+    <string name="providers_failed_with">Falló con</string>
+    <string name="providers_result_success">Correcto: \"%1$s\", respondió %2$s</string>
+    <string name="providers_result_failure">Falló con %1$s</string>
+    <string name="providers_calls">Llamadas por proveedor</string>
+    <string name="providers_no_calls">No hubo llamadas.</string>
+    <string name="providers_calls_entry">%1$s: %2$d</string>
+    <string name="providers_calls_entry_spoken">%1$s: %2$d llamadas</string>
+    <string name="providers_footer">Los escenarios viven en contracts/providers y se comparten con la implementación de Kotlin.</string>
+    <string name="providers_load_error">No se pudieron cargar los escenarios: %1$s</string>
+</resources>

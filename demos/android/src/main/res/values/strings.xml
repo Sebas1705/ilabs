@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iLabs</string>
+
+    <string name="providers_title">Providers</string>
+    <string name="providers_subtitle">Retry and fallback over AI providers, replayed from the shared contract fixtures. Nothing leaves your device.</string>
+    <string name="providers_fixture">Fixture</string>
+    <string name="providers_fixture_picker">Fixture: %1$s. Double tap to choose another.</string>
+    <string name="providers_setup">Setup</string>
+    <string name="providers_kind">Strategy</string>
+    <string name="providers_kind_retry">Retry</string>
+    <string name="providers_kind_fallback">Fallback</string>
+    <string name="providers_max_attempts">Max attempts</string>
+    <string name="providers_base_delay">Base delay</string>
+    <string name="providers_max_delay">Max delay</string>
+    <string name="providers_request">Request</string>
+    <string name="providers_ms">%1$d ms</string>
+    <string name="providers_scripts">Provider scripts</string>
+    <string name="providers_script_hint">Call N consumes entry N. After the script ends, every call fails with unavailable.</string>
+    <string name="providers_no_providers">No providers configured.</string>
+    <string name="providers_empty_script">Empty script</string>
+    <string name="providers_entry_response">responds</string>
+    <string name="providers_entry_error">fails with</string>
+    <string name="providers_retry_after">retry after %1$d ms</string>
+    <string name="providers_script_entry_response">%1$s, entry %2$d: responds \"%3$s\"</string>
+    <string name="providers_script_entry_error">%1$s, entry %2$d: fails with %3$s</string>
+    <string name="providers_timeline">Timeline</string>
+    <string name="providers_call_to">call</string>
+    <string name="providers_wait">wait</string>
+    <string name="providers_timeline_call">Step %1$d: call to %2$s, %3$s</string>
+    <string name="providers_timeline_wait">Step %1$d: wait %2$d milliseconds</string>
+    <string name="providers_outcome_ok">success</string>
+    <string name="providers_outcome_rate_limit">rate limited</string>
+    <string name="providers_outcome_timeout">timed out</string>
+    <string name="providers_outcome_invalid_output">invalid output</string>
+    <string name="providers_outcome_unavailable">unavailable</string>
+    <string name="providers_outcome_label">%1$s (%2$s)</string>
+    <string name="providers_result">Result</string>
+    <string name="providers_answered_by">answered by %1$s</string>
+    <string name="providers_failed_with">Failed with</string>
+    <string name="providers_result_success">Success: \"%1$s\", answered by %2$s</string>
+    <string name="providers_result_failure">Failed with %1$s</string>
+    <string name="providers_calls">Calls per provider</string>
+    <string name="providers_no_calls">No calls were made.</string>
+    <string name="providers_calls_entry">%1$s: %2$d</string>
+    <string name="providers_calls_entry_spoken">%1$s: %2$d calls</string>
+    <string name="providers_footer">Fixtures live in contracts/providers and are shared with the Kotlin implementation.</string>
+    <string name="providers_load_error">Could not load the fixtures: %1$s</string>
+</resources>

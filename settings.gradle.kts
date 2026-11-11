@@ -28,3 +28,5 @@ dependencyResolutionManagement {
 }
 
 include(":modules:providers:kotlin")
+
+include(":demos:android")
