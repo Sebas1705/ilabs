@@ -1,0 +1,9 @@
+.superpowers/
+node_modules/
+build/
+.gradle/
+local.properties
+.idea/
+dist/
+*.log
+.env
