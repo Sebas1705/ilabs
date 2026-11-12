@@ -1,0 +1,38 @@
+{
+  "name": "extract-invalid-number-infinity",
+  "schema": {},
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[-Infinity]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "",
+            "code": "invalid_json"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

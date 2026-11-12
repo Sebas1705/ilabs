@@ -28,3 +28,10 @@ kotlin {
         }
     }
 }
+
+// Gradle does not know the shared fixtures are test inputs: declare them so a fixture-only edit reruns the tests.
+tasks.withType<Test>().configureEach {
+    inputs.files(rootProject.fileTree("contracts/providers") { include("*.json") })
+        .withPropertyName("contractFixtures")
+        .withPathSensitivity(PathSensitivity.RELATIVE)
+}

@@ -1,0 +1,46 @@
+{
+  "name": "loop-first-try",
+  "schema": {
+    "type": "object",
+    "required": [
+      "age"
+    ],
+    "properties": {
+      "age": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "How old?"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"age\": 7}"
+      },
+      {
+        "response": "{\"age\": 8}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "age": 7
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

@@ -40,6 +40,18 @@
     "calls": {
       "a": 1,
       "b": 1
-    }
+    },
+    "events": [
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "unavailable"
+      },
+      {
+        "type": "call",
+        "provider": "b",
+        "outcome": "ok"
+      }
+    ]
   }
 }

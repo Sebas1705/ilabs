@@ -1,0 +1,38 @@
+{
+  "name": "extract-invalid-unicode-escape-nonascii-digits",
+  "schema": {},
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"a\": \"\\u\u0660\u0660\u0664\u0661\"}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "",
+            "code": "invalid_json"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

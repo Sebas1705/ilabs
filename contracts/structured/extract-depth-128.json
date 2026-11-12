@@ -1,0 +1,41 @@
+{
+  "name": "extract-depth-128",
+  "schema": {
+    "type": "array",
+    "maxItems": 0
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "",
+            "code": "maxItems"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

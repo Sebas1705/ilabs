@@ -31,6 +31,11 @@ describe("providers contract fixtures", () => {
       }
       expect(out.sleeps).toEqual(fx.expect.sleeps);
       expect(out.calls).toEqual(fx.expect.calls);
+      const waits = out.events.flatMap((e) => (e.type === "wait" ? [e.ms] : []));
+      expect(waits, `${fx.name}: wait events must equal sleeps`).toEqual(out.sleeps);
+      if (fx.expect.events !== undefined) {
+        expect(out.events, `${fx.name}: event trace`).toEqual(fx.expect.events);
+      }
     });
   }
 });

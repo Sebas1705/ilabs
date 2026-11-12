@@ -1,0 +1,59 @@
+{
+  "name": "validate-items-per-index",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[{\"id\": 1}, {\"x\": 1}, {\"id\": \"2\"}, 5]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/1/id",
+            "code": "required"
+          },
+          {
+            "path": "/2/id",
+            "code": "type"
+          },
+          {
+            "path": "/3",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "loop-exhausted",
+  "schema": {
+    "type": "object",
+    "required": [
+      "age"
+    ],
+    "properties": {
+      "age": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "How old?"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 1
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"age\": -1}"
+      },
+      {
+        "response": "{\"age\": \"x\"}"
+      },
+      {
+        "response": "{\"age\": 7}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/age",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 2,
+    "appended": [
+      "assistant",
+      "user"
+    ]
+  }
+}

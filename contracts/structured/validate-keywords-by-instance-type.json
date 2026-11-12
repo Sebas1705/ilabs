@@ -1,0 +1,72 @@
+{
+  "name": "validate-keywords-by-instance-type",
+  "schema": {
+    "type": "array",
+    "items": {
+      "minimum": 5,
+      "maxLength": 1,
+      "minItems": 3,
+      "required": [
+        "a"
+      ],
+      "additionalProperties": false,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[\"ab\", 1, [2], {\"b\": 1}, true, null]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/0",
+            "code": "maxLength"
+          },
+          {
+            "path": "/1",
+            "code": "minimum"
+          },
+          {
+            "path": "/2",
+            "code": "minItems"
+          },
+          {
+            "path": "/2/0",
+            "code": "type"
+          },
+          {
+            "path": "/3/a",
+            "code": "required"
+          },
+          {
+            "path": "/3/b",
+            "code": "additionalProperties"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

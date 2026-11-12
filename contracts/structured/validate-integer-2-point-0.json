@@ -1,0 +1,41 @@
+{
+  "name": "validate-integer-2-point-0",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "integer"
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[2.0, 2e0, 1e2, -0, 1.5e1]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": [
+        2,
+        2,
+        100,
+        0,
+        15
+      ]
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

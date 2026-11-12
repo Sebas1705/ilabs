@@ -2,20 +2,7 @@ import { runFixture, type Fixture, type FixtureRun } from "@ilabs/providers";
 import { useEffect, useState } from "react";
 import { OutcomeBadge, Timeline } from "../components/Timeline";
 import { fixtures } from "../fixtures";
-import { LangContext, detectLang, saveLang, useT, type Lang } from "../i18n";
-
-type Theme = "auto" | "light" | "dark";
-const THEME_KEY = "ilabs.theme";
-
-function loadTheme(): Theme {
-  try {
-    const v = localStorage.getItem(THEME_KEY);
-    if (v === "light" || v === "dark") return v;
-  } catch {
-    /* storage unavailable */
-  }
-  return "auto";
-}
+import { useT } from "../i18n";
 
 function Setup({ fixture }: { fixture: Fixture }) {
   const t = useT();
@@ -112,12 +99,11 @@ function Result({ run }: { run: FixtureRun }) {
   );
 }
 
-function Page({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
+export function ProvidersPage() {
   const t = useT();
   const [name, setName] = useState(fixtures[0]?.name ?? "");
   const [run, setRun] = useState<FixtureRun | null>(null);
   const [runError, setRunError] = useState<string | null>(null);
-  const [theme, setTheme] = useState<Theme>(loadTheme);
   const fixture = fixtures.find((f) => f.name === name);
 
   useEffect(() => {
@@ -135,46 +121,10 @@ function Page({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
     };
   }, [fixture]);
 
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
-
-  useEffect(() => {
-    if (theme === "auto") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme", theme);
-    try {
-      localStorage.setItem(THEME_KEY, theme);
-    } catch {
-      /* storage unavailable */
-    }
-  }, [theme]);
-
-  const other: Lang = lang === "en" ? "es" : "en";
   return (
     <>
-      <a className="skip" href="#main">
-        {t("skip")}
-      </a>
-      <header className="top">
-        <div className="bar">
-          <span className="brand">iLabs</span>
-          <div className="controls">
-            <label className="inline">
-              <span>{t("theme")}</span>
-              <select value={theme} onChange={(e) => setTheme(e.target.value as Theme)}>
-                <option value="auto">{t("themeAuto")}</option>
-                <option value="light">{t("themeLight")}</option>
-                <option value="dark">{t("themeDark")}</option>
-              </select>
-            </label>
-            <button type="button" className="btn" aria-label={`${lang.toUpperCase()} → ${other.toUpperCase()}, ${t("languageSwitch")}`} onClick={() => setLang(other)}>
-              {lang.toUpperCase()} {"→"} {other.toUpperCase()}
-            </button>
-          </div>
-        </div>
-      </header>
-      <main id="main" className="column">
-        <h1>{t("title")}</h1>
+      <main id="main" className="column" tabIndex={-1}>
+        <h1 tabIndex={-1}>{t("title")}</h1>
         <p className="muted">{t("subtitle")}</p>
         <label className="field">
           <span>{t("fixture")}</span>
@@ -207,15 +157,3 @@ function Page({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
   );
 }
 
-export function ProvidersPage() {
-  const [lang, setLangState] = useState<Lang>(detectLang);
-  const setLang = (l: Lang) => {
-    setLangState(l);
-    saveLang(l);
-  };
-  return (
-    <LangContext.Provider value={lang}>
-      <Page lang={lang} setLang={setLang} />
-    </LangContext.Provider>
-  );
-}

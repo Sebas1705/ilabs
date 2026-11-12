@@ -1,0 +1,35 @@
+{
+  "name": "extract-plain",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"name\": \"Ada\", \"age\": 36}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "name": "Ada",
+        "age": 36
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

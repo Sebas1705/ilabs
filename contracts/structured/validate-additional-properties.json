@@ -1,0 +1,64 @@
+{
+  "name": "validate-additional-properties",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "b": {
+        "type": "string"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"z\": 1, \"b\": 5, \"a\": true}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/id",
+            "code": "required"
+          },
+          {
+            "path": "/a",
+            "code": "additionalProperties"
+          },
+          {
+            "path": "/z",
+            "code": "additionalProperties"
+          },
+          {
+            "path": "/b",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "extract-escaped-quotes",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "Value: {\"q\": \"say \\\"}\\\" now\", \"p\": \"C:\\\\\"} end"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "q": "say \"}\" now",
+        "p": "C:\\"
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

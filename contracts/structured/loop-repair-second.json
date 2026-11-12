@@ -1,0 +1,49 @@
+{
+  "name": "loop-repair-second",
+  "schema": {
+    "type": "object",
+    "required": [
+      "age"
+    ],
+    "properties": {
+      "age": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "How old?"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"age\": -1}"
+      },
+      {
+        "response": "{\"age\": 7}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "age": 7
+      }
+    },
+    "attempts": 2,
+    "appended": [
+      "assistant",
+      "user"
+    ]
+  }
+}

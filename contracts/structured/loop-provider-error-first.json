@@ -1,0 +1,39 @@
+{
+  "name": "loop-provider-error-first",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "error": {
+          "kind": "timeout"
+        }
+      },
+      {
+        "response": "{\"a\": 1}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "timeout"
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

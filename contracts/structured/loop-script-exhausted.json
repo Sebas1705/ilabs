@@ -1,0 +1,40 @@
+{
+  "name": "loop-script-exhausted",
+  "schema": {
+    "type": "object",
+    "required": [
+      "a"
+    ]
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "no json here"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "unavailable"
+      }
+    },
+    "attempts": 2,
+    "appended": [
+      "assistant",
+      "user"
+    ]
+  }
+}

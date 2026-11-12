@@ -1,0 +1,59 @@
+{
+  "name": "validate-order-utf16-units",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "｡": {
+        "type": "string"
+      },
+      "😀": {
+        "type": "string"
+      },
+      "z": {
+        "type": "string"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"z\": 0, \"｡\": 0, \"😀\": 0}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/z",
+            "code": "type"
+          },
+          {
+            "path": "/😀",
+            "code": "type"
+          },
+          {
+            "path": "/｡",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

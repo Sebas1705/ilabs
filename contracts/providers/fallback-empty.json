@@ -19,6 +19,7 @@
       }
     },
     "sleeps": [],
-    "calls": {}
+    "calls": {},
+    "events": []
   }
 }

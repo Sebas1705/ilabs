@@ -1,0 +1,54 @@
+{
+  "name": "validate-required-two-missing",
+  "schema": {
+    "type": "object",
+    "required": [
+      "zeta",
+      "alpha",
+      "c"
+    ],
+    "properties": {
+      "alpha": {
+        "type": "string"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"c\": 1}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/zeta",
+            "code": "required"
+          },
+          {
+            "path": "/alpha",
+            "code": "required"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

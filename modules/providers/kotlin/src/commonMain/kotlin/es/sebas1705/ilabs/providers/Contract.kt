@@ -22,8 +22,31 @@ data class ExpectedResult(
     val error: ScriptError? = null,
 )
 
+/** Expected trace entry: `type` is "call" (`provider`, `outcome`) or "wait" (`ms`). */
 @Serializable
-data class Expectation(val result: ExpectedResult, val sleeps: List<Long>, val calls: Map<String, Int>)
+data class ExpectedEvent(
+    val type: String,
+    val provider: String? = null,
+    val outcome: String? = null,
+    val ms: Long? = null,
+) {
+    fun toEvent(): Event = when (type) {
+        "call" -> Event.Call(
+            provider ?: error("call event needs a provider"),
+            outcome ?: error("call event needs an outcome"),
+        )
+        "wait" -> Event.Wait(ms ?: error("wait event needs ms"))
+        else -> error("unknown event type: $type")
+    }
+}
+
+@Serializable
+data class Expectation(
+    val result: ExpectedResult,
+    val sleeps: List<Long>,
+    val calls: Map<String, Int>,
+    val events: List<ExpectedEvent>? = null,
+)
 
 @Serializable
 data class Fixture(

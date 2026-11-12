@@ -1,0 +1,73 @@
+{
+  "name": "validate-type-mismatch",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "age": {
+        "type": "number"
+      },
+      "ok": {
+        "type": "boolean"
+      },
+      "n": {
+        "type": "null"
+      },
+      "list": {
+        "type": "array"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"name\": 1, \"age\": \"x\", \"ok\": null, \"n\": false, \"list\": {}}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/age",
+            "code": "type"
+          },
+          {
+            "path": "/list",
+            "code": "type"
+          },
+          {
+            "path": "/n",
+            "code": "type"
+          },
+          {
+            "path": "/name",
+            "code": "type"
+          },
+          {
+            "path": "/ok",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "loop-provider-invalid-output",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "error": {
+          "kind": "invalid_output"
+        }
+      },
+      {
+        "response": "{\"a\": 1}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output"
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

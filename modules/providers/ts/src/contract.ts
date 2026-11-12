@@ -16,7 +16,7 @@ export interface Fixture {
   setup: { kind: "retry" | "fallback"; maxAttempts?: number; baseDelayMs?: number; maxDelayMs?: number };
   providers: { id: string; script: ScriptEntry[] }[];
   request: CompletionRequest;
-  expect: { result: FixtureOutcome; sleeps: number[]; calls: Record<string, number> };
+  expect: { result: FixtureOutcome; sleeps: number[]; calls: Record<string, number>; events?: FixtureEvent[] };
 }
 
 export type FixtureEvent =

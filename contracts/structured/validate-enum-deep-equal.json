@@ -1,0 +1,69 @@
+{
+  "name": "validate-enum-deep-equal",
+  "schema": {
+    "type": "array",
+    "items": {
+      "enum": [
+        {
+          "a": 1,
+          "b": [
+            1,
+            2
+          ]
+        },
+        1,
+        null
+      ]
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[{\"b\": [1.0, 2], \"a\": 1}, 1.0, null, {\"a\": 1, \"b\": [2, 1]}, true, {\"a\": 1}, {\"a\": 1, \"b\": [1, 2], \"c\": 0}, \"1\"]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/3",
+            "code": "enum"
+          },
+          {
+            "path": "/4",
+            "code": "enum"
+          },
+          {
+            "path": "/5",
+            "code": "enum"
+          },
+          {
+            "path": "/6",
+            "code": "enum"
+          },
+          {
+            "path": "/7",
+            "code": "enum"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

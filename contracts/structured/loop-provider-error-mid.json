@@ -1,0 +1,48 @@
+{
+  "name": "loop-provider-error-mid",
+  "schema": {
+    "type": "object",
+    "required": [
+      "a"
+    ]
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hi"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"b\": 1}"
+      },
+      {
+        "error": {
+          "kind": "rate_limit"
+        }
+      },
+      {
+        "response": "{\"a\": 1}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "rate_limit"
+      }
+    },
+    "attempts": 2,
+    "appended": [
+      "assistant",
+      "user"
+    ]
+  }
+}

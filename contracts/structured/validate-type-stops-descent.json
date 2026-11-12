@@ -1,0 +1,57 @@
+{
+  "name": "validate-type-stops-descent",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "p": {
+        "type": "object",
+        "enum": [
+          {
+            "q": 1
+          }
+        ],
+        "minItems": 2,
+        "required": [
+          "q"
+        ],
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"p\": [1]}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/p",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

@@ -41,6 +41,13 @@
     "calls": {
       "a": 1,
       "b": 0
-    }
+    },
+    "events": [
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "invalid_output"
+      }
+    ]
   }
 }

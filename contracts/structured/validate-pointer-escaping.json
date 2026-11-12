@@ -1,0 +1,59 @@
+{
+  "name": "validate-pointer-escaping",
+  "schema": {
+    "type": "object",
+    "required": [
+      "e/~f"
+    ],
+    "properties": {
+      "a/b": {
+        "type": "string"
+      },
+      "c~d": {
+        "type": "string"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"c~d\": 2, \"a/b\": 1}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/e~1~0f",
+            "code": "required"
+          },
+          {
+            "path": "/a~1b",
+            "code": "type"
+          },
+          {
+            "path": "/c~0d",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

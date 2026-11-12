@@ -1,0 +1,49 @@
+{
+  "name": "validate-string-length-emoji",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[\"😀😀\", \"😀😀😀\", \"😀\"]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/1",
+            "code": "maxLength"
+          },
+          {
+            "path": "/2",
+            "code": "minLength"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

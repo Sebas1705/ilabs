@@ -1,0 +1,34 @@
+{
+  "name": "extract-braces-in-string",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "Result: {\"s\": \"a } b { c ] [ ``` d\"} done"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "s": "a } b { c ] [ ``` d"
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

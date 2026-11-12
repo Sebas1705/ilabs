@@ -1,0 +1,49 @@
+{
+  "name": "validate-enum",
+  "schema": {
+    "type": "string",
+    "enum": [
+      "red",
+      "green"
+    ],
+    "minLength": 10
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "\"blue\""
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "",
+            "code": "enum"
+          },
+          {
+            "path": "",
+            "code": "minLength"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

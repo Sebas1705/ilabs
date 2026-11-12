@@ -1,0 +1,34 @@
+{
+  "name": "extract-prose-around",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "Sure! The answer is {\"ok\": true} as requested."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "ok": true
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

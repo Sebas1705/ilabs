@@ -1,7 +1,10 @@
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileSystemOperations
-import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.file.FileTree
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
@@ -13,11 +16,17 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-/** Copies the shared contract fixtures into the app assets; `contracts/providers` stays the single source. */
-abstract class CopyFixturesTask : DefaultTask() {
-    @get:InputDirectory
+/** Copies every module's shared contract JSON into the app assets as `contracts/<module>/`; `contracts/` stays the single source. */
+@CacheableTask
+abstract class CopyContractsTask : DefaultTask() {
+    /** Root of the shared contracts; only the JSON files one level down are inputs (READMEs are ignored). */
+    @get:Internal
+    abstract val contractsDir: DirectoryProperty
+
+    @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val source: DirectoryProperty
+    val contractFiles: FileTree
+        get() = contractsDir.asFileTree.matching { include("*/*.json") }
 
     @get:OutputDirectory
     abstract val output: DirectoryProperty
@@ -28,14 +37,14 @@ abstract class CopyFixturesTask : DefaultTask() {
     @TaskAction
     fun copy() {
         fs.sync {
-            from(source) { include("*.json") }
-            into(output.dir("fixtures"))
+            from(contractsDir) { include("*/*.json") }
+            into(output.dir("contracts"))
         }
     }
 }
 
-val copyFixtures = tasks.register<CopyFixturesTask>("copyProvidersFixtures") {
-    source.set(rootProject.layout.projectDirectory.dir("contracts/providers"))
+val copyContracts = tasks.register<CopyContractsTask>("copyContracts") {
+    contractsDir.set(rootProject.layout.projectDirectory.dir("contracts"))
 }
 
 android {
@@ -62,12 +71,13 @@ android {
 
 androidComponents {
     onVariants { variant ->
-        variant.sources.assets?.addGeneratedSourceDirectory(copyFixtures, CopyFixturesTask::output)
+        variant.sources.assets?.addGeneratedSourceDirectory(copyContracts, CopyContractsTask::output)
     }
 }
 
 dependencies {
-    implementation(project(":modules:providers:kotlin"))
+    implementation(project(":modules:providers-kotlin"))
+    implementation(project(":modules:structured-kotlin"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.foundation)

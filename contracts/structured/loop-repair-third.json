@@ -1,0 +1,58 @@
+{
+  "name": "loop-repair-third",
+  "schema": {
+    "type": "object",
+    "required": [
+      "age"
+    ],
+    "properties": {
+      "age": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "system",
+        "content": "Reply with JSON only."
+      },
+      {
+        "role": "user",
+        "content": "How old?"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 2
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "I think about seven."
+      },
+      {
+        "response": "{\"age\": \"seven\"}"
+      },
+      {
+        "response": "```json\n{\"age\": 7}\n```"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "age": 7
+      }
+    },
+    "attempts": 3,
+    "appended": [
+      "assistant",
+      "user",
+      "assistant",
+      "user"
+    ]
+  }
+}

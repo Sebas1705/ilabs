@@ -49,17 +49,18 @@ import es.sebas1705.ilabs.providers.FixtureResult
 import es.sebas1705.ilabs.providers.ScriptEntry
 
 /** Readable width of the content column on tablets and foldables. */
-private val ContentMaxWidth: Dp = 720.dp
+internal val ContentMaxWidth: Dp = 720.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProvidersScreen(state: ProvidersUiState, onSelect: (String) -> Unit) {
+fun ProvidersScreen(state: ProvidersUiState, onSelect: (String) -> Unit, onBack: (() -> Unit)? = null) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name), fontWeight = FontWeight.SemiBold) },
+                navigationIcon = { if (onBack != null) BackToModules(onBack) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
             )
         },
@@ -155,7 +156,7 @@ private fun FixturePicker(names: List<String>, selected: String, onSelect: (Stri
 }
 
 @Composable
-private fun Card(title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+internal fun Card(title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.surface,
@@ -170,7 +171,7 @@ private fun Card(title: String, modifier: Modifier = Modifier, content: @Composa
 }
 
 @Composable
-private fun Section(title: String) {
+internal fun Section(title: String) {
     Text(
         title,
         style = MaterialTheme.typography.titleMedium,
@@ -179,7 +180,7 @@ private fun Section(title: String) {
 }
 
 @Composable
-private fun KeyValue(key: String, value: String) {
+internal fun KeyValue(key: String, value: String) {
     Column(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalArrangement = Arrangement.Center) {
         Text(key, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(value, style = MaterialTheme.typography.bodyLarge)

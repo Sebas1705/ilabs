@@ -37,6 +37,22 @@
     ],
     "calls": {
       "a": 2
-    }
+    },
+    "events": [
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "timeout"
+      },
+      {
+        "type": "wait",
+        "ms": 100
+      },
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "unavailable"
+      }
+    ]
   }
 }

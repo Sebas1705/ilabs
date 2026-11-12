@@ -40,6 +40,22 @@
     ],
     "calls": {
       "a": 2
-    }
+    },
+    "events": [
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "rate_limit"
+      },
+      {
+        "type": "wait",
+        "ms": 250
+      },
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "ok"
+      }
+    ]
   }
 }

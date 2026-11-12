@@ -38,6 +38,13 @@
     "sleeps": [],
     "calls": {
       "a": 1
-    }
+    },
+    "events": [
+      {
+        "type": "call",
+        "provider": "a",
+        "outcome": "invalid_output"
+      }
+    ]
   }
 }

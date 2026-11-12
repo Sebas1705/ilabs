@@ -31,6 +31,7 @@ Fixture file (`contracts/providers/<name>.json`):
 - `sleeps` lists every `sleep(ms)` call in order, after clamping. There is no sleep after the final failed attempt.
 - `retryAfterMs` is "present" when it is not null/absent: `0` counts as present and yields a wait of `0`, not the exponential delay. Negative values are clamped to `0`.
 - `expect.result` errors: compare `error.kind` only, plus `error.retryAfterMs` only if the expected error specifies it.
+- `expect.events` is optional. When present it is the exact, ordered trace of the run, compared by equality: `{"type":"call","provider":"<id>","outcome":"ok|rate_limit|timeout|invalid_output|unavailable"}` for every `complete()` invocation (including script-exhausted ones, outcome `unavailable`) and `{"type":"wait","ms":<int>}` for every `sleep(ms)` call. The `wait` events must equal `expect.sleeps`, in order; both runners check this for every fixture. An empty trace is `[]`.
 - Non-provider exceptions (anything that is not a `ProviderError` / `ProviderException`) are rethrown unchanged by `RetryingProvider` and `FallbackProvider`: never mapped, never retried, and `FallbackProvider` does not move on to the next provider.
 
 ## Option preconditions

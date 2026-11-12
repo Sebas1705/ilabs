@@ -1,0 +1,68 @@
+{
+  "name": "validate-order-integer-like-keys",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "2": {
+        "type": "string"
+      },
+      "10": {
+        "type": "string"
+      },
+      "b": {
+        "type": "string"
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"b\": 0, \"4\": 0, \"2\": 0, \"30\": 0, \"10\": 0}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/30",
+            "code": "additionalProperties"
+          },
+          {
+            "path": "/4",
+            "code": "additionalProperties"
+          },
+          {
+            "path": "/10",
+            "code": "type"
+          },
+          {
+            "path": "/2",
+            "code": "type"
+          },
+          {
+            "path": "/b",
+            "code": "type"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

@@ -65,4 +65,4 @@ jobs:
           distribution: temurin
           java-version: "21"
       - uses: gradle/actions/setup-gradle@v6
-      - run: ./gradlew :modules:providers:kotlin:jvmTest :demos:android:testDebugUnitTest :demos:android:assembleDebug
+      - run: ./gradlew jvmContractTests :demos:android:testDebugUnitTest :demos:android:assembleDebug

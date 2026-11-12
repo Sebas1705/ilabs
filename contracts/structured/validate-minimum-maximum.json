@@ -1,0 +1,53 @@
+{
+  "name": "validate-minimum-maximum",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "[-1, 0, 10, 11, 5.5, -0.5]"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/0",
+            "code": "minimum"
+          },
+          {
+            "path": "/3",
+            "code": "maximum"
+          },
+          {
+            "path": "/5",
+            "code": "minimum"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

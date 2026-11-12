@@ -1,0 +1,40 @@
+{
+  "name": "extract-array-root",
+  "schema": {
+    "type": "array"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "Items: [1, {\"a\": [2]}, 3] end"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": [
+        1,
+        {
+          "a": [
+            2
+          ]
+        },
+        3
+      ]
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

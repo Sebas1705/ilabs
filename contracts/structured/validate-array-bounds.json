@@ -1,0 +1,66 @@
+{
+  "name": "validate-array-bounds",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "few": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 3
+      },
+      "many": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 3
+      },
+      "two": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 3
+      },
+      "three": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 3
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"few\": [1], \"many\": [1, 2, 3, 4], \"two\": [1, 2], \"three\": [1, 2, 3]}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/few",
+            "code": "minItems"
+          },
+          {
+            "path": "/many",
+            "code": "maxItems"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

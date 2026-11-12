@@ -27,6 +27,10 @@ dependencyResolutionManagement {
     }
 }
 
-include(":modules:providers:kotlin")
+include(":modules:providers-kotlin")
+project(":modules:providers-kotlin").projectDir = file("modules/providers/kotlin")
+
+include(":modules:structured-kotlin")
+project(":modules:structured-kotlin").projectDir = file("modules/structured/kotlin")
 
 include(":demos:android")

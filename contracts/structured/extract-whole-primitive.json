@@ -1,0 +1,32 @@
+{
+  "name": "extract-whole-primitive",
+  "schema": {
+    "type": "integer"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "  42  "
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": 42
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

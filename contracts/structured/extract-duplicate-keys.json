@@ -1,0 +1,34 @@
+{
+  "name": "extract-duplicate-keys",
+  "schema": {
+    "type": "object"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"a\": 1, \"a\": 2}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": {
+        "a": 2
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

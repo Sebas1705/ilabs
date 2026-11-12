@@ -1,0 +1,52 @@
+{
+  "name": "loop-max-repairs-zero",
+  "schema": {
+    "type": "object",
+    "required": [
+      "age"
+    ],
+    "properties": {
+      "age": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "How old?"
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "{\"years\": 7}"
+      },
+      {
+        "response": "{\"age\": 7}"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "invalid_output",
+        "issues": [
+          {
+            "path": "/age",
+            "code": "required"
+          }
+        ]
+      }
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

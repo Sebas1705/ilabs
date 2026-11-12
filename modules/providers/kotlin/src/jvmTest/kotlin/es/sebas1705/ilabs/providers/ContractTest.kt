@@ -3,8 +3,6 @@ package es.sebas1705.ilabs.providers
 import kotlinx.coroutines.test.runTest
 import java.io.File
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 class ContractTest {
@@ -31,22 +29,29 @@ class ContractTest {
 
     @Test
     fun everyFixtureMatchesItsExpectation() = runTest {
+        val failures = mutableListOf<String>()
         for (fx in fixtures) {
             val out = runFixture(fx)
             val want = fx.expect.result
             val got = out.result
+            fun check(what: String, expected: Any?, actual: Any?) {
+                if (expected != actual) failures += "${fx.name}: $what: expected <$expected> but was <$actual>"
+            }
             if (want.error != null) {
-                assertIs<FixtureResult.Failure>(got, "${fx.name}: expected an error")
-                assertEquals(want.error.kind, got.kind, "${fx.name}: error kind")
-                if (want.error.retryAfterMs != null) {
-                    assertEquals(want.error.retryAfterMs, got.retryAfterMs, "${fx.name}: retryAfterMs")
+                if (got is FixtureResult.Failure) {
+                    check("error kind", want.error.kind, got.kind)
+                    if (want.error.retryAfterMs != null) check("retryAfterMs", want.error.retryAfterMs, got.retryAfterMs)
+                } else {
+                    failures += "${fx.name}: expected an error but got <$got>"
                 }
             } else {
-                assertEquals(FixtureResult.Success(want.text!!, want.provider!!), got, "${fx.name}: result")
+                check("result", FixtureResult.Success(want.text!!, want.provider!!), got)
             }
-            assertEquals(fx.expect.sleeps, out.sleeps, "${fx.name}: sleeps")
-            assertEquals(fx.expect.calls, out.calls, "${fx.name}: calls")
-            assertEquals(out.sleeps, out.events.filterIsInstance<Event.Wait>().map { it.ms }, "${fx.name}: events/sleeps")
+            check("sleeps", fx.expect.sleeps, out.sleeps)
+            check("calls", fx.expect.calls, out.calls)
+            check("events/sleeps", out.sleeps, out.events.filterIsInstance<Event.Wait>().map { it.ms })
+            fx.expect.events?.let { want -> check("event trace", want.map { it.toEvent() }, out.events) }
         }
+        assertTrue(failures.isEmpty(), "${failures.size} contract check(s) failed:\n" + failures.joinToString("\n"))
     }
 }

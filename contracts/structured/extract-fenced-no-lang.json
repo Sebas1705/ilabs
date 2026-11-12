@@ -1,0 +1,35 @@
+{
+  "name": "extract-fenced-no-lang",
+  "schema": {
+    "type": "array"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer in JSON."
+      }
+    ]
+  },
+  "setup": {
+    "maxRepairs": 0
+  },
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "Here:\n```\n[1, 2]\n```"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "value": [
+        1,
+        2
+      ]
+    },
+    "attempts": 1,
+    "appended": []
+  }
+}

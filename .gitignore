@@ -10,3 +10,4 @@ dist/
 .kotlin/
 *.iml
 .vscode/
+.claude/
