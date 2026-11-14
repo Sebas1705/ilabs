@@ -33,7 +33,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import es.sebas1705.ilabs.context.Fixture as ContextFixture
+import es.sebas1705.ilabs.context.contract.Fixture
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ContextViewModelTest {
@@ -312,7 +312,7 @@ class ContextViewModelTest {
             val state = vm.at(name)
             assertNull(name, state.runError)
             val view = state.view!!
-            val fx: ContextFixture = state.fixture!!
+            val fx: Fixture = state.fixture!!
             val expect = fx.expect
             val want: JsonObject = expect.result
             val wantError = want["error"] as? JsonObject

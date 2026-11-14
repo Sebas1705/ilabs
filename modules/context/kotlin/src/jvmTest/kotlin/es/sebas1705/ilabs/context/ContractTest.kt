@@ -1,5 +1,7 @@
 package es.sebas1705.ilabs.context
 
+import es.sebas1705.ilabs.context.contract.*
+
 import es.sebas1705.ilabs.providers.Message
 import es.sebas1705.ilabs.providers.Role
 import kotlinx.coroutines.test.runTest

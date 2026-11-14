@@ -45,9 +45,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import es.sebas1705.ilabs.providers.Fixture
-import es.sebas1705.ilabs.providers.FixtureOutcome
-import es.sebas1705.ilabs.providers.FixtureResult
+import es.sebas1705.ilabs.providers.contract.Fixture
+import es.sebas1705.ilabs.providers.contract.FixtureOutcome
+import es.sebas1705.ilabs.providers.contract.FixtureResult
 import es.sebas1705.ilabs.providers.ScriptEntry
 
 /** Readable width of the content column on tablets and foldables. */

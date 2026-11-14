@@ -1,7 +1,7 @@
 import { MockProvider, ProviderError, type CompletionRequest, type Message, type Provider } from "@ilabs/providers";
 import { describe, expect, it } from "vitest";
 import { SUMMARY_PREFIX } from "./tokens.js";
-import { summarizeContext } from "./summarize.js";
+import { DEFAULT_KEEP_RECENT, summarizeContext } from "./summarize.js";
 import { BudgetTooSmallError } from "./window.js";
 
 const m = (role: Message["role"], content: string): Message => ({ role, content });
@@ -14,6 +14,20 @@ const convo = (): Message[] => [
   m("user", "User turn 3"),
   m("assistant", "Bot turn 3"),
 ];
+
+describe("DEFAULT_KEEP_RECENT", () => {
+  it("is 4, as the contract says, and is what summarizeContext uses when keepRecent is omitted", async () => {
+    expect(DEFAULT_KEEP_RECENT).toBe(4);
+    const long = [m("system", "Be brief."), ...Array.from({ length: 10 }, (_, i) => m(i % 2 === 0 ? "user" : "assistant", `Turn number ${i}`))];
+    const run = (options: { maxTokens: number; keepRecent?: number }) => summarizeContext(new MockProvider("a", [{ response: "s" }]), long, options);
+    const implicit = await run({ maxTokens: 60 });
+    const explicit = await run({ maxTokens: 60, keepRecent: DEFAULT_KEEP_RECENT });
+    expect(implicit.summarized).toBe(true);
+    expect(implicit).toEqual(explicit);
+    // The 4 most recent non-system messages survive verbatim.
+    expect(implicit.messages.slice(-4)).toEqual(long.slice(-4));
+  });
+});
 
 describe("summarizeContext", () => {
   it("returns the input unchanged without a call when it fits", async () => {

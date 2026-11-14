@@ -2,8 +2,11 @@ import type { CompletionRequest, Message, Provider } from "@ilabs/providers";
 import { defaultCounter, isSummaryMessage, SUMMARY_PREFIX } from "./tokens.js";
 import { requirePositiveInteger, slidingWindow, type WindowOptions, type WindowResult } from "./window.js";
 
+/** How many of the most recent non-system messages `summarizeContext` never summarizes when `keepRecent` is omitted (the contract says 4). */
+export const DEFAULT_KEEP_RECENT = 4;
+
 export interface SummarizeOptions extends WindowOptions {
-  /** Number of most recent non-system messages that are never summarized (default 4). */
+  /** Number of most recent non-system messages that are never summarized (default {@link DEFAULT_KEEP_RECENT}). */
   keepRecent?: number;
 }
 
@@ -28,7 +31,7 @@ function buildRequest(sent: Message[]): CompletionRequest {
  */
 export async function summarizeContext(provider: Provider, messages: Message[], options: SummarizeOptions): Promise<SummarizeResult> {
   requirePositiveInteger("maxTokens", options.maxTokens);
-  const keepRecent = options.keepRecent ?? 4;
+  const keepRecent = options.keepRecent ?? DEFAULT_KEEP_RECENT;
   requirePositiveInteger("keepRecent", keepRecent);
   const counter = options.counter ?? defaultCounter;
   const { maxTokens } = options;

@@ -1,5 +1,6 @@
-import { BudgetTooSmallError, runFixture, slidingWindow, type Fixture, type FixtureRun, type WindowResult } from "@ilabs/context";
+import { BudgetTooSmallError, DEFAULT_KEEP_RECENT, runFixture, slidingWindow, type Fixture, type FixtureRun, type WindowResult } from "@ilabs/context";
 import { useEffect, useMemo, useState } from "react";
+import { LoadErrors } from "../components/LoadErrors";
 import { TokenBar } from "../components/TokenBar";
 import { contextFixtures, groupContextFixtures, loadErrors } from "../contextFixtures";
 import { buildRows, totalTokens, type Row, type RowState } from "../contextView";
@@ -7,7 +8,6 @@ import { useT, type Key } from "../i18n";
 import { useRoleLabel } from "../roles";
 
 const DEFAULT_FIXTURE = "window-drops-oldest";
-const DEFAULT_KEEP_RECENT = 4;
 
 const STATE: Record<Exclude<RowState, "none">, { key: Key; glyph: string }> = {
   kept: { key: "cStateKept", glyph: "✓" },
@@ -137,18 +137,7 @@ export function ContextPage() {
       <main id="main" className="column" tabIndex={-1} aria-busy={busy}>
         <h1 tabIndex={-1}>{t("cTitle")}</h1>
         <p className="muted">{t("cSubtitle")}</p>
-        {loadErrors.length > 0 && (
-          <div className="card note" data-testid="load-errors">
-            <p>{t("cLoadWarning")}</p>
-            <ul>
-              {loadErrors.map((e) => (
-                <li key={e} className="message">
-                  <code>{e}</code>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <LoadErrors errors={loadErrors} />
         <label className="field">
           <span>{t("fixture")}</span>
           <select value={name} onChange={(e) => setName(e.target.value)}>

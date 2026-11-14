@@ -40,12 +40,17 @@ class SummarizeTest {
     )
 
     @Test
+    fun keepRecentDefaultsToTheContractValue() {
+        assertEquals(4, DEFAULT_KEEP_RECENT)
+        assertEquals(DEFAULT_KEEP_RECENT, SummarizeOptions(maxTokens = 10).keepRecent)
+    }
+
+    @Test
     fun rejectsInvalidOptions() {
         assertFailsWith<IllegalArgumentException> { SummarizeOptions(maxTokens = 0) }
         assertFailsWith<IllegalArgumentException> { SummarizeOptions(maxTokens = -1) }
         assertFailsWith<IllegalArgumentException> { SummarizeOptions(maxTokens = 10, keepRecent = 0) }
         assertFailsWith<IllegalArgumentException> { SummarizeOptions(maxTokens = 10, keepRecent = -1) }
-        assertEquals(4, SummarizeOptions(maxTokens = 10).keepRecent)
     }
 
     @Test

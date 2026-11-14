@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import * as providers from "@ilabs/providers";
 import { vi } from "vitest";
 import { App } from "../App";
+import { LangContext } from "../i18n";
+import { ProvidersPage } from "./ProvidersPage";
 
 vi.mock("@ilabs/providers", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@ilabs/providers")>();
@@ -96,5 +98,55 @@ describe("ProvidersPage", () => {
     await user.selectOptions(screen.getByLabelText("Fixture"), "retry-then-success");
     expect(await screen.findByRole("region", { name: "Result" })).toBeInTheDocument();
     expect(screen.queryByRole("alert")).toBeNull();
+  });
+
+  it("renders a minimal fixture that passes the shape check, and one using every script entry flavour, without throwing", async () => {
+    const mod = await import("../fixtures");
+    const minimal = { name: "zz-minimal", setup: { kind: "fallback" }, providers: [], request: { messages: [] }, expect: {} };
+    const full = {
+      name: "zz-full",
+      setup: { kind: "retry", maxAttempts: 2 },
+      providers: [{ id: "p", script: [{ response: "r" }, { error: { kind: "rate_limit", retryAfterMs: 5 } }, { error: { kind: "timeout", retryAfterMs: null } }] }],
+      request: { messages: [{ role: "user", content: "hi" }] },
+      expect: {},
+    };
+    const { fixtures: accepted, errors } = mod.parseProviderFixtures({ "m.json": JSON.stringify(minimal), "f.json": JSON.stringify(full) });
+    expect(errors).toEqual([]);
+    mod.fixtures.push(...accepted);
+    try {
+      const user = userEvent.setup();
+      render(<App />);
+      for (const fx of accepted) {
+        await user.selectOptions(screen.getByLabelText("Fixture"), fx.name);
+        expect(screen.getByRole("heading", { name: "Setup" })).toBeInTheDocument();
+        await screen.findByRole("region", { name: "Result" }).catch(() => screen.findByRole("alert"));
+      }
+    } finally {
+      mod.fixtures.splice(mod.fixtures.length - accepted.length, accepted.length);
+    }
+  });
+
+  it("shows a translated, non-blocking warning for fixtures that failed to load and keeps the rest selectable", async () => {
+    const mod = await import("../fixtures");
+    mod.loadErrors.push("broken.json: invalid JSON");
+    try {
+      const user = userEvent.setup();
+      const { unmount } = render(<App />);
+      const note = screen.getByTestId("load-errors");
+      expect(note).toHaveTextContent("Fixtures skipped because they could not be loaded:");
+      expect(note).toHaveTextContent("broken.json");
+      expect(screen.queryByRole("alert")).toBeNull();
+      await user.selectOptions(screen.getByLabelText("Fixture"), "retry-then-success");
+      expect(await screen.findByRole("list", { name: "Timeline" })).toBeInTheDocument();
+      unmount();
+      render(
+        <LangContext.Provider value="es">
+          <ProvidersPage />
+        </LangContext.Provider>,
+      );
+      expect(screen.getByTestId("load-errors")).toHaveTextContent("Escenarios omitidos por no poder cargarse:");
+    } finally {
+      mod.loadErrors.length = 0;
+    }
   });
 });

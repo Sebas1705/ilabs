@@ -17,7 +17,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import es.sebas1705.ilabs.providers.Event
+import es.sebas1705.ilabs.providers.contract.Event
 
 /** Translated label for an outcome code ("ok" or an error kind); unknown codes fall back to the raw code. */
 @Composable

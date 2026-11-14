@@ -207,4 +207,50 @@ describe("StructuredPage", () => {
       expect(screen.queryByRole("alert"), fx.name).toBeNull();
     }
   }, 60_000);
+
+  it("renders a minimal fixture that passes the shape check, and one using every script entry flavour, without throwing", async () => {
+    const mod = await import("../structuredFixtures");
+    const minimal = { name: "zz-minimal", schema: {}, request: { messages: [] }, setup: { maxRepairs: 0 }, provider: { id: "p", script: [] }, expect: {} };
+    const full = {
+      name: "zz-full",
+      schema: { type: "object" },
+      request: { messages: [{ role: "user", content: "hi" }] },
+      setup: { maxRepairs: 1 },
+      provider: { id: "p", script: [{ response: "{}" }, { error: { kind: "rate_limit", retryAfterMs: 5 } }, { error: { kind: "timeout", retryAfterMs: null } }] },
+      expect: {},
+    };
+    const { fixtures: accepted, errors } = mod.parseStructuredFixtures({ "m.json": JSON.stringify(minimal), "f.json": JSON.stringify(full) });
+    expect(errors).toEqual([]);
+    mod.structuredFixtures.push(...accepted);
+    try {
+      const user = userEvent.setup();
+      mount();
+      for (const fx of accepted) {
+        await user.selectOptions(screen.getByLabelText("Fixture"), fx.name);
+        expect(screen.getByRole("heading", { name: "Setup" })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: "Request" })).toBeInTheDocument();
+        await screen.findByRole("region", { name: "Result" }).catch(() => screen.findByRole("alert"));
+      }
+    } finally {
+      mod.structuredFixtures.splice(mod.structuredFixtures.length - accepted.length, accepted.length);
+    }
+  });
+
+  it("shows a translated, non-blocking warning for fixtures that failed to load and keeps the rest selectable", async () => {
+    const mod = await import("../structuredFixtures");
+    mod.loadErrors.push("broken.json: invalid JSON");
+    try {
+      const { unmount } = mount();
+      const note = screen.getByTestId("load-errors");
+      expect(note).toHaveTextContent("Fixtures skipped because they could not be loaded:");
+      expect(note).toHaveTextContent("broken.json");
+      expect(screen.queryByRole("alert")).toBeNull();
+      expect(within(screen.getByLabelText("Fixture")).getAllByRole("option")).toHaveLength(fixtureCount);
+      unmount();
+      mount("es");
+      expect(screen.getByTestId("load-errors")).toHaveTextContent("Escenarios omitidos por no poder cargarse:");
+    } finally {
+      mod.loadErrors.length = 0;
+    }
+  });
 });

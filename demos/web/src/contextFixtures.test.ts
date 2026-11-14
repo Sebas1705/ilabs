@@ -21,6 +21,15 @@ describe("parseFixtures", () => {
     }
   });
 
+  it("rejects an array setup and a null message", () => {
+    const r = parseFixtures({
+      "../c/array-setup.json": JSON.stringify({ name: "a", setup: [], messages: [] }),
+      "../c/null-message.json": JSON.stringify({ name: "b", setup: { kind: "window", maxTokens: 1 }, messages: [null] }),
+    });
+    expect(r.fixtures).toEqual([]);
+    expect(r.errors).toHaveLength(2);
+  });
+
   it("never throws, whatever the input", () => {
     expect(() => parseFixtures({ a: "", b: "[]", c: "42", d: '{"name":1}' })).not.toThrow();
     expect(parseFixtures({}).fixtures).toEqual([]);

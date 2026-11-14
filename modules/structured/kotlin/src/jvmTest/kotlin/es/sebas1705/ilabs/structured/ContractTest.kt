@@ -1,5 +1,7 @@
 package es.sebas1705.ilabs.structured
 
+import es.sebas1705.ilabs.structured.contract.*
+
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject

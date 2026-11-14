@@ -15,11 +15,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
-import es.sebas1705.ilabs.structured.Fixture as StructuredFixture
-import es.sebas1705.ilabs.structured.FixtureOutcome as StructuredOutcome
-import es.sebas1705.ilabs.structured.FixtureResult as StructuredResult
-import es.sebas1705.ilabs.structured.parseFixture as parseStructuredFixture
-import es.sebas1705.ilabs.structured.runFixture as runStructuredFixture
+import es.sebas1705.ilabs.structured.contract.Fixture
+import es.sebas1705.ilabs.structured.contract.FixtureOutcome
+import es.sebas1705.ilabs.structured.contract.FixtureResult
+import es.sebas1705.ilabs.structured.contract.parseFixture
+import es.sebas1705.ilabs.structured.contract.runFixture
 
 /** Fixture groups, in display order; the group is derived from the start of the fixture name. */
 enum class StructuredGroup(val prefix: String) {
@@ -41,8 +41,8 @@ data class StructuredProviderFailure(val attempt: Int, val kind: ErrorKind)
 data class StructuredUiState(
     val names: List<String> = emptyList(),
     val selected: String? = null,
-    val fixture: StructuredFixture? = null,
-    val outcome: StructuredOutcome? = null,
+    val fixture: Fixture? = null,
+    val outcome: FixtureOutcome? = null,
     /** Set when some or all fixture documents could not be loaded; the valid ones are still listed. */
     val loadError: String? = null,
     /** Set when replaying the selected fixture failed. */
@@ -56,7 +56,7 @@ data class StructuredUiState(
     val providerFailure: StructuredProviderFailure?
         get() {
             val run = outcome ?: return null
-            val failure = run.result as? StructuredResult.Failure ?: return null
+            val failure = run.result as? FixtureResult.Failure ?: return null
             return if (failure.issues == null && run.attempts > run.trace.size) StructuredProviderFailure(run.attempts, failure.kind) else null
         }
 }
@@ -69,9 +69,9 @@ fun prettyJson(element: JsonElement): String = prettyPrinter.encodeToString(Json
 class StructuredViewModel(
     loader: FixtureLoader,
     private val savedState: SavedStateHandle,
-    private val runner: suspend (StructuredFixture) -> StructuredOutcome = ::runStructuredFixture,
+    private val runner: suspend (Fixture) -> FixtureOutcome = ::runFixture,
 ) : ViewModel() {
-    private val fixtures: Map<String, StructuredFixture>
+    private val fixtures: Map<String, Fixture>
     private val _uiState = MutableStateFlow(StructuredUiState())
     val uiState: StateFlow<StructuredUiState> = _uiState.asStateFlow()
 
@@ -80,7 +80,7 @@ class StructuredViewModel(
         val parsed = try {
             loader.load().mapIndexedNotNull { index, doc ->
                 try {
-                    parseStructuredFixture(doc)
+                    parseFixture(doc)
                 } catch (e: Exception) {
                     problems += "${describe(index, doc)}: ${e.message ?: e::class.simpleName}"
                     null
@@ -92,7 +92,7 @@ class StructuredViewModel(
         }
         fixtures = parsed.associateBy { it.name }
         _uiState.value = StructuredUiState(
-            names = parsed.map(StructuredFixture::name),
+            names = parsed.map(Fixture::name),
             loadError = problems.takeIf { it.isNotEmpty() }?.joinToString("; "),
         )
         if (parsed.isNotEmpty()) {

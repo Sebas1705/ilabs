@@ -39,9 +39,9 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import es.sebas1705.ilabs.structured.Fixture
-import es.sebas1705.ilabs.structured.FixtureOutcome
-import es.sebas1705.ilabs.structured.FixtureResult
+import es.sebas1705.ilabs.structured.contract.Fixture
+import es.sebas1705.ilabs.structured.contract.FixtureOutcome
+import es.sebas1705.ilabs.structured.contract.FixtureResult
 import es.sebas1705.ilabs.providers.ScriptEntry
 
 @OptIn(ExperimentalMaterial3Api::class)

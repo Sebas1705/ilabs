@@ -1,4 +1,6 @@
-package es.sebas1705.ilabs.providers
+package es.sebas1705.ilabs.providers.contract
+
+import es.sebas1705.ilabs.providers.*
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

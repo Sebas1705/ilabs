@@ -1,4 +1,6 @@
-package es.sebas1705.ilabs.context
+package es.sebas1705.ilabs.context.contract
+
+import es.sebas1705.ilabs.context.*
 
 import es.sebas1705.ilabs.providers.CompletionRequest
 import es.sebas1705.ilabs.providers.CompletionResponse
@@ -97,7 +99,7 @@ suspend fun runFixture(fixture: Fixture): FixtureOutcome {
             return mock.complete(req)
         }
     }
-    val options = SummarizeOptions(setup.maxTokens, setup.keepRecent ?: 4)
+    val options = SummarizeOptions(setup.maxTokens, setup.keepRecent ?: DEFAULT_KEEP_RECENT)
     val result = try {
         val r = summarizeContext(provider, fixture.messages, options)
         FixtureResult.Success(r.messages, r.droppedCount, r.tokensBefore, r.tokensAfter, r.summarized, r.summaryCalls)

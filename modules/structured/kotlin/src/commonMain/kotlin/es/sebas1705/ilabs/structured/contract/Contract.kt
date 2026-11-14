@@ -1,4 +1,6 @@
-package es.sebas1705.ilabs.structured
+package es.sebas1705.ilabs.structured.contract
+
+import es.sebas1705.ilabs.structured.*
 
 import es.sebas1705.ilabs.providers.CompletionRequest
 import es.sebas1705.ilabs.providers.CompletionResponse

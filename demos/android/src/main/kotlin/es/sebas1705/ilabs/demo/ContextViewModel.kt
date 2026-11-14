@@ -7,6 +7,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import es.sebas1705.ilabs.context.BudgetTooSmallException
+import es.sebas1705.ilabs.context.DEFAULT_KEEP_RECENT
 import es.sebas1705.ilabs.context.WindowOptions
 import es.sebas1705.ilabs.context.defaultCounter
 import es.sebas1705.ilabs.context.isSummaryMessage
@@ -20,11 +21,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import es.sebas1705.ilabs.context.Fixture as ContextFixture
-import es.sebas1705.ilabs.context.FixtureOutcome as ContextOutcome
-import es.sebas1705.ilabs.context.FixtureResult as ContextResult
-import es.sebas1705.ilabs.context.parseFixture as parseContextFixture
-import es.sebas1705.ilabs.context.runFixture as runContextFixture
+import es.sebas1705.ilabs.context.contract.Fixture
+import es.sebas1705.ilabs.context.contract.FixtureOutcome
+import es.sebas1705.ilabs.context.contract.FixtureResult
+import es.sebas1705.ilabs.context.contract.parseFixture
+import es.sebas1705.ilabs.context.contract.runFixture
 
 /** Fixture groups, in display order; the group is derived from the start of the fixture name. */
 enum class ContextGroup(val prefix: String) {
@@ -70,7 +71,7 @@ data class ContextView(
 data class ContextUiState(
     val names: List<String> = emptyList(),
     val selected: String? = null,
-    val fixture: ContextFixture? = null,
+    val fixture: Fixture? = null,
     /** Slider value in tokens; for a summarize fixture, the fixture's own fixed budget. */
     val budget: Int = 1,
     /** Slider maximum: the total tokens of the conversation (at least 1). */
@@ -87,8 +88,6 @@ data class ContextUiState(
     val groups: List<Pair<ContextGroup, List<String>>>
         get() = names.groupBy(ContextGroup::of).toList().sortedBy { it.first.ordinal }
 }
-
-private const val DEFAULT_KEEP_RECENT = 4
 
 /** Rows without states: no result to judge by. */
 private fun plainRows(messages: List<Message>) = messages.map { ContextRow(it, defaultCounter(it), null) }
@@ -142,11 +141,11 @@ private fun windowView(messages: List<Message>, budget: Int): ContextView {
     }
 }
 
-private fun summarizeView(fixture: ContextFixture, outcome: ContextOutcome): ContextView {
+private fun summarizeView(fixture: Fixture, outcome: FixtureOutcome): ContextView {
     val messages = fixture.messages
     val before = messages.sumOf(defaultCounter)
     return when (val result = outcome.result) {
-        is ContextResult.Success -> ContextView(
+        is FixtureResult.Success -> ContextView(
             rows = markedRows(messages, result.messages, result.summarized == true, fixture.setup.keepRecent ?: DEFAULT_KEEP_RECENT),
             tokensBefore = result.tokensBefore,
             tokensAfter = result.tokensAfter,
@@ -157,7 +156,7 @@ private fun summarizeView(fixture: ContextFixture, outcome: ContextOutcome): Con
             summarizerRequest = outcome.summarizerRequest,
             outputMessages = result.messages,
         )
-        is ContextResult.Failure -> ContextView(
+        is FixtureResult.Failure -> ContextView(
             rows = plainRows(messages),
             tokensBefore = before,
             tokensAfter = before,
@@ -173,9 +172,9 @@ private fun summarizeView(fixture: ContextFixture, outcome: ContextOutcome): Con
 class ContextViewModel(
     loader: FixtureLoader,
     private val savedState: SavedStateHandle,
-    private val runner: suspend (ContextFixture) -> ContextOutcome = ::runContextFixture,
+    private val runner: suspend (Fixture) -> FixtureOutcome = ::runFixture,
 ) : ViewModel() {
-    private val fixtures: Map<String, ContextFixture>
+    private val fixtures: Map<String, Fixture>
     private val _uiState = MutableStateFlow(ContextUiState())
     val uiState: StateFlow<ContextUiState> = _uiState.asStateFlow()
 
@@ -184,7 +183,7 @@ class ContextViewModel(
         val parsed = try {
             loader.load().mapIndexedNotNull { index, doc ->
                 try {
-                    parseContextFixture(doc)
+                    parseFixture(doc)
                 } catch (e: Exception) {
                     problems += "${describe(index, doc)}: ${e.message ?: e::class.simpleName}"
                     null
@@ -196,7 +195,7 @@ class ContextViewModel(
         }
         fixtures = parsed.associateBy { it.name }
         _uiState.value = ContextUiState(
-            names = parsed.map(ContextFixture::name),
+            names = parsed.map(Fixture::name),
             loadError = problems.takeIf { it.isNotEmpty() }?.joinToString("; "),
         )
         if (parsed.isNotEmpty()) {

@@ -1,7 +1,8 @@
 import { runFixture, type Fixture, type FixtureRun } from "@ilabs/providers";
 import { useEffect, useState } from "react";
 import { OutcomeBadge, Timeline } from "../components/Timeline";
-import { fixtures } from "../fixtures";
+import { LoadErrors } from "../components/LoadErrors";
+import { fixtures, loadErrors } from "../fixtures";
 import { useT } from "../i18n";
 
 function Setup({ fixture }: { fixture: Fixture }) {
@@ -126,6 +127,7 @@ export function ProvidersPage() {
       <main id="main" className="column" tabIndex={-1}>
         <h1 tabIndex={-1}>{t("title")}</h1>
         <p className="muted">{t("subtitle")}</p>
+        <LoadErrors errors={loadErrors} />
         <label className="field">
           <span>{t("fixture")}</span>
           <select value={name} onChange={(e) => setName(e.target.value)}>

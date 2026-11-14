@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import es.sebas1705.ilabs.providers.ErrorKind
 import es.sebas1705.ilabs.providers.Role
 import es.sebas1705.ilabs.structured.Extraction
-import es.sebas1705.ilabs.structured.FixtureResult
+import es.sebas1705.ilabs.structured.contract.FixtureResult
 import es.sebas1705.ilabs.structured.Issue
 import es.sebas1705.ilabs.structured.IssueCode
 import java.io.File

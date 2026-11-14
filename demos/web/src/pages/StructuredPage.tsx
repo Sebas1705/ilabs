@@ -6,7 +6,8 @@ import { OutcomeBadge } from "../components/Timeline";
 import { useT } from "../i18n";
 import { useRoleLabel } from "../roles";
 import { formatJson } from "../json";
-import { groupFixtures, structuredFixtures } from "../structuredFixtures";
+import { LoadErrors } from "../components/LoadErrors";
+import { groupFixtures, loadErrors, structuredFixtures } from "../structuredFixtures";
 
 const DEFAULT_FIXTURE = "loop-repair-second";
 
@@ -158,6 +159,7 @@ export function StructuredPage() {
       <main id="main" className="column" tabIndex={-1}>
         <h1 tabIndex={-1}>{t("sTitle")}</h1>
         <p className="muted">{t("sSubtitle")}</p>
+        <LoadErrors errors={loadErrors} />
         <label className="field">
           <span>{t("fixture")}</span>
           <select value={name} onChange={(e) => setName(e.target.value)}>

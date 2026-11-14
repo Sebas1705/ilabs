@@ -1,5 +1,7 @@
 package es.sebas1705.ilabs.providers
 
+import es.sebas1705.ilabs.providers.contract.*
+
 import kotlinx.coroutines.test.runTest
 import java.io.File
 import kotlin.test.Test

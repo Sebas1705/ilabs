@@ -5,9 +5,15 @@ import es.sebas1705.ilabs.providers.Message
 import es.sebas1705.ilabs.providers.Provider
 import es.sebas1705.ilabs.providers.Role
 
+/**
+ * Default number of most recent non-system messages that [summarizeContext] never summarizes
+ * ([SummarizeOptions.keepRecent]); the cross-language contract fixes it at 4.
+ */
+const val DEFAULT_KEEP_RECENT = 4
+
 data class SummarizeOptions(
     val maxTokens: Int,
-    val keepRecent: Int = 4,
+    val keepRecent: Int = DEFAULT_KEEP_RECENT,
     val counter: TokenCounter = defaultCounter,
 ) {
     init {
