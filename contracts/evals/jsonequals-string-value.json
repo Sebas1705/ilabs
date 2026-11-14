@@ -1,0 +1,98 @@
+{
+  "name": "jsonequals-string-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Capital of France?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": "Paris"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Capital of France?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": "Paris"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Paris"
+        },
+        {
+          "response": "\"Paris\""
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "Paris",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": false,
+            "issues": [
+              {
+                "path": "",
+                "code": "no_json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "\"Paris\"",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0.5
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

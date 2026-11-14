@@ -1,0 +1,62 @@
+{
+  "name": "jsonequals-float-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "The number one."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": 1.0
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "1"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "1",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

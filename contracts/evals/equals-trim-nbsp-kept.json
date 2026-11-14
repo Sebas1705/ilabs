@@ -1,0 +1,62 @@
+{
+  "name": "equals-trim-nbsp-kept",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Status?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "ok",
+            "trim": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": " ok "
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": " ok ",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

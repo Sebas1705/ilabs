@@ -1,0 +1,43 @@
+{
+  "name": "invalid-target-id-judge",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        }
+      ]
+    },
+    {
+      "id": "judge",
+      "script": [
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

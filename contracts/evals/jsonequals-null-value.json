@@ -1,0 +1,93 @@
+{
+  "name": "jsonequals-null-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Nothing?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": null
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Nothing?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "null"
+        },
+        {
+          "response": "0"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "null",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "0",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": false,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0.5
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

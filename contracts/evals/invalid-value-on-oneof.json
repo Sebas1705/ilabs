@@ -1,0 +1,60 @@
+{
+  "name": "invalid-value-on-oneof",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          },
+          {
+            "kind": "oneOf",
+            "values": [
+              "hi"
+            ],
+            "value": "hi"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        },
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

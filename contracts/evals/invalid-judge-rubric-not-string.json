@@ -1,0 +1,64 @@
+{
+  "name": "invalid-judge-rubric-not-string",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          },
+          {
+            "kind": "judge",
+            "rubric": 5
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        },
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "response": "PASS"
+      }
+    ]
+  },
+  "expect": {
+    "invalidSuite": true
+  }
+}

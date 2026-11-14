@@ -1,0 +1,70 @@
+{
+  "name": "status-error-beats-fail",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hello"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "bye"
+          },
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hello there"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "error",
+        "reply": "hello there",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": false
+          },
+          {
+            "kind": "judge",
+            "passed": false,
+            "error": "no_judge"
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 0,
+        "errored": 1,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

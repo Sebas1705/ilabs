@@ -1,0 +1,124 @@
+{
+  "name": "length-min-equals-max",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Two letters."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Two letters."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Two letters."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "ab"
+        },
+        {
+          "response": "abc"
+        },
+        {
+          "response": "a"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "ab",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "abc",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "a",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0.3333333333333333
+      }
+    ],
+    "calls": {
+      "a": 3
+    }
+  }
+}

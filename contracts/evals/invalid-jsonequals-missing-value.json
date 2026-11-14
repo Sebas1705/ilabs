@@ -1,0 +1,56 @@
+{
+  "name": "invalid-jsonequals-missing-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          },
+          {
+            "kind": "jsonEquals"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        },
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

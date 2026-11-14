@@ -1,0 +1,48 @@
+{
+  "name": "invalid-no-graders",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": []
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        },
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

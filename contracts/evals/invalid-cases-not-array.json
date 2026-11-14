@@ -1,0 +1,38 @@
+{
+  "name": "invalid-cases-not-array",
+  "suite": {
+    "cases": {
+      "c1": {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      }
+    }
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        },
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "contains-trim-value-to-empty",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say xyz."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "  ",
+            "trim": true
+          },
+          {
+            "kind": "notContains",
+            "value": " \t",
+            "trim": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "xyz"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "xyz",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          },
+          {
+            "kind": "notContains",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

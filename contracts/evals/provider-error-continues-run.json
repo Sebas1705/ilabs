@@ -1,0 +1,88 @@
+{
+  "name": "provider-error-continues-run",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "rate_limit"
+          }
+        },
+        {
+          "response": "hi there"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "error",
+        "error": "rate_limit",
+        "graders": []
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "hi there",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 1,
+        "failed": 0,
+        "errored": 1,
+        "passRate": 0.5
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

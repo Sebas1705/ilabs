@@ -1,0 +1,51 @@
+{
+  "name": "invalid-duplicate-target-id",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "script": [
+        {
+          "response": "hi"
+        }
+      ]
+    },
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

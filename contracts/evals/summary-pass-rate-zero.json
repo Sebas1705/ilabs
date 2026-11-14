@@ -1,0 +1,88 @@
+{
+  "name": "summary-pass-rate-zero",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "no"
+        },
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "no",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "error",
+        "error": "timeout",
+        "graders": []
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 0,
+        "failed": 1,
+        "errored": 1,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

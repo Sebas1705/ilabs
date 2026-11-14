@@ -1,0 +1,107 @@
+{
+  "name": "calls-lists-every-target",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say ok."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "ok"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "ok"
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "script": [
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "script": []
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "ok",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c1",
+        "targetId": "b",
+        "status": "error",
+        "error": "timeout",
+        "graders": []
+      },
+      {
+        "caseId": "c1",
+        "targetId": "c",
+        "status": "error",
+        "error": "unavailable",
+        "graders": []
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      },
+      {
+        "targetId": "b",
+        "total": 1,
+        "passed": 0,
+        "failed": 0,
+        "errored": 1,
+        "passRate": 0
+      },
+      {
+        "targetId": "c",
+        "total": 1,
+        "passed": 0,
+        "failed": 0,
+        "errored": 1,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1,
+      "b": 1,
+      "c": 1
+    }
+  }
+}

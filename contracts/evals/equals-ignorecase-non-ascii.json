@@ -1,0 +1,93 @@
+{
+  "name": "equals-ignorecase-non-ascii",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name a drink."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "café",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Letter?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "k",
+            "ignoreCase": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "CAFÉ"
+        },
+        {
+          "response": "K"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "CAFÉ",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "K",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

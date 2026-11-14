@@ -1,0 +1,157 @@
+{
+  "name": "string-graders-nbsp-not-trimmed-all-kinds",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": " Hi ",
+            "trim": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "startsWith",
+            "value": "Hi",
+            "trim": true
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "endsWith",
+            "value": "Hi",
+            "trim": true
+          }
+        ]
+      },
+      {
+        "id": "c4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "oneOf",
+            "values": [
+              "Hi"
+            ],
+            "trim": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hi"
+        },
+        {
+          "response": " Hi"
+        },
+        {
+          "response": "Hi "
+        },
+        {
+          "response": " Hi "
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "Hi",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": " Hi",
+        "graders": [
+          {
+            "kind": "startsWith",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "Hi ",
+        "graders": [
+          {
+            "kind": "endsWith",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c4",
+        "targetId": "a",
+        "status": "fail",
+        "reply": " Hi ",
+        "graders": [
+          {
+            "kind": "oneOf",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 4,
+        "passed": 0,
+        "failed": 4,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 4
+    }
+  }
+}

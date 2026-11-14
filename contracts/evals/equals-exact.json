@@ -1,0 +1,121 @@
+{
+  "name": "equals-exact",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Capital of France?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "Paris"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Capital of France?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "Paris"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Capital of France?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "Paris"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Paris"
+        },
+        {
+          "response": " Paris"
+        },
+        {
+          "response": "paris"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Paris",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": " Paris",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "paris",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0.3333333333333333
+      }
+    ],
+    "calls": {
+      "a": 3
+    }
+  }
+}

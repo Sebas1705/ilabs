@@ -1,0 +1,61 @@
+{
+  "name": "length-exponent-bound",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "A word."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "max": 1e2
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "abc"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "abc",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

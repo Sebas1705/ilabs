@@ -1,0 +1,61 @@
+{
+  "name": "length-integral-float-bound",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Two letters."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "max": 2.0
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "ab"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "ab",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

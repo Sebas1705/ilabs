@@ -1,0 +1,109 @@
+{
+  "name": "judge-lowercase-is-bad-verdict",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a greeting."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a greeting."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hello there!"
+        },
+        {
+          "response": "Hello there!"
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "response": "pass"
+      },
+      {
+        "response": "fail"
+      }
+    ]
+  },
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "error",
+        "reply": "Hello there!",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": false,
+            "error": "bad_verdict"
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "error",
+        "reply": "Hello there!",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": false,
+            "error": "bad_verdict"
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 0,
+        "failed": 0,
+        "errored": 2,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 2,
+      "judge": 2
+    },
+    "judgeContains": [
+      "Is it polite?",
+      "Write a greeting.",
+      "Hello there!"
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "name": "summary-pass-rate-two-thirds",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "yes"
+        },
+        {
+          "response": "yes"
+        },
+        {
+          "response": "no"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "yes",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "yes",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "no",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0.6666666666666666
+      }
+    ],
+    "calls": {
+      "a": 3
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import type { Key } from "./i18n";
 import { ContextPage } from "./pages/ContextPage";
+import { EvalsPage } from "./pages/EvalsPage";
 import { ProvidersPage } from "./pages/ProvidersPage";
 import { StructuredPage } from "./pages/StructuredPage";
 
@@ -21,4 +22,5 @@ export const ROUTES: readonly RouteDef[] = [
   { id: "providers", hash: "#/providers", titleKey: "navProviders", navKey: "navProviders", component: ProvidersPage },
   { id: "structured", hash: "#/structured", titleKey: "navStructured", navKey: "navStructured", component: StructuredPage },
   { id: "context", hash: "#/context", titleKey: "navContext", navKey: "navContext", component: ContextPage },
+  { id: "evals", hash: "#/evals", titleKey: "navEvals", navKey: "navEvals", component: EvalsPage },
 ];

@@ -1,0 +1,74 @@
+{
+  "name": "judge-pass",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a greeting."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hello there!"
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "response": "PASS"
+      }
+    ]
+  },
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Hello there!",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1,
+      "judge": 1
+    },
+    "judgeContains": [
+      "Is it polite?",
+      "Write a greeting.",
+      "Hello there!"
+    ]
+  }
+}

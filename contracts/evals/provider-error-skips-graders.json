@@ -1,0 +1,70 @@
+{
+  "name": "provider-error-skips-graders",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a greeting."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "Hello"
+          },
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "response": "PASS"
+      }
+    ]
+  },
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "error",
+        "error": "timeout",
+        "graders": []
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 0,
+        "errored": 1,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1,
+      "judge": 0
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "invalid-empty-cases",
+  "suite": {
+    "cases": []
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hi"
+        },
+        {
+          "response": "hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "invalidSuite": true
+  }
+}

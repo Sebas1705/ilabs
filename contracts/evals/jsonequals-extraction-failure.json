@@ -1,0 +1,107 @@
+{
+  "name": "jsonequals-extraction-failure",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "One key."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": {
+              "a": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "One key."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": {
+              "a": 1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "No JSON here."
+        },
+        {
+          "response": "{\"a\": 1"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "No JSON here.",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": false,
+            "issues": [
+              {
+                "path": "",
+                "code": "no_json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "{\"a\": 1",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": false,
+            "issues": [
+              {
+                "path": "",
+                "code": "invalid_json"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

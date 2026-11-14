@@ -1,0 +1,74 @@
+{
+  "name": "judge-fail",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a greeting."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hello there!"
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "response": "FAIL: too curt"
+      }
+    ]
+  },
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "Hello there!",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1,
+      "judge": 1
+    },
+    "judgeContains": [
+      "Is it polite?",
+      "Write a greeting.",
+      "Hello there!"
+    ]
+  }
+}

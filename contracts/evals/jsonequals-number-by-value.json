@@ -1,0 +1,67 @@
+{
+  "name": "jsonequals-number-by-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Four numbers."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": [
+              1,
+              2,
+              0,
+              100
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "[1.0, 2e0, -0, 1E2]"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "[1.0, 2e0, -0, 1E2]",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

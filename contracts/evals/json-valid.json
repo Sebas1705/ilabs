@@ -1,0 +1,72 @@
+{
+  "name": "json-valid",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Which city? Answer in JSON."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "json",
+            "schema": {
+              "type": "object",
+              "required": [
+                "city"
+              ],
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "```json\n{\"city\": \"Paris\"}\n```"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "```json\n{\"city\": \"Paris\"}\n```",
+        "graders": [
+          {
+            "kind": "json",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

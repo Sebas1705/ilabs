@@ -4,6 +4,7 @@ import { LoadErrors } from "../components/LoadErrors";
 import { TokenBar } from "../components/TokenBar";
 import { contextFixtures, groupContextFixtures, loadErrors } from "../contextFixtures";
 import { buildRows, totalTokens, type Row, type RowState } from "../contextView";
+import { useFill } from "../fill";
 import { useT, type Key } from "../i18n";
 import { useRoleLabel } from "../roles";
 
@@ -21,12 +22,6 @@ type Outcome =
   | { kind: "tooSmall"; required: number }
   | { kind: "failed"; errorKind: string }
   | { kind: "crashed"; message: string };
-
-function useFill() {
-  const t = useT();
-  return (key: Key, vars: Record<string, string | number>) =>
-    t(key).replace(/\{(\w+)\}/g, (whole, name: string) => (name in vars ? String(vars[name]) : whole));
-}
 
 function runWindow(fixture: Fixture, maxTokens: number): Outcome {
   try {

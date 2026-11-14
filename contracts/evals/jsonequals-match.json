@@ -1,0 +1,68 @@
+{
+  "name": "jsonequals-match",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Which city? Answer in JSON."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": {
+              "city": "Paris",
+              "tags": [
+                "a",
+                "b"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Here: {\"city\": \"Paris\", \"tags\": [\"a\", \"b\"]} done"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Here: {\"city\": \"Paris\", \"tags\": [\"a\", \"b\"]} done",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

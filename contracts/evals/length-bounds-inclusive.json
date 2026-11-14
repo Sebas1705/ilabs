@@ -1,0 +1,155 @@
+{
+  "name": "length-bounds-inclusive",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Short word."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Short word."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Short word."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "id": "c4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Short word."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 2,
+            "max": 3
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "ab"
+        },
+        {
+          "response": "abc"
+        },
+        {
+          "response": "a"
+        },
+        {
+          "response": "abcd"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "ab",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "abc",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "a",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c4",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "abcd",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 4,
+        "passed": 2,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0.5
+      }
+    ],
+    "calls": {
+      "a": 4
+    }
+  }
+}

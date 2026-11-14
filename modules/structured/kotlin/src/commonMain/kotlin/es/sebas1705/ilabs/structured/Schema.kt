@@ -74,7 +74,7 @@ private fun numberOf(v: JsonElement): Double? =
     if (isNumber(v)) (v as JsonPrimitive).doubleOrNull else null
 
 /** JSON deep equality: numbers by value, objects without key order, no coercion between kinds. */
-internal fun jsonEqual(a: JsonElement, b: JsonElement): Boolean {
+fun jsonEqual(a: JsonElement, b: JsonElement): Boolean {
     if (a is JsonObject) {
         return b is JsonObject && a.size == b.size && a.all { (k, v) -> b[k]?.let { jsonEqual(v, it) } ?: false }
     }

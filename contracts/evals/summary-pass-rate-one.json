@@ -1,0 +1,91 @@
+{
+  "name": "summary-pass-rate-one",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "yes"
+        },
+        {
+          "response": "yes"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "yes",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "yes",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

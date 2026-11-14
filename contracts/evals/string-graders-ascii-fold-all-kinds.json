@@ -1,0 +1,345 @@
+{
+  "name": "string-graders-ascii-fold-all-kinds",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "café",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "notContains",
+            "value": "café",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "startsWith",
+            "value": "café",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c4",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "endsWith",
+            "value": "café",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c5",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "oneOf",
+            "values": [
+              "café"
+            ],
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c6",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "k",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c7",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "notContains",
+            "value": "k",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c8",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "startsWith",
+            "value": "k",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c9",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "endsWith",
+            "value": "k",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c10",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Name it."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "oneOf",
+            "values": [
+              "k"
+            ],
+            "ignoreCase": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "CAFÉ"
+        },
+        {
+          "response": "CAFÉ"
+        },
+        {
+          "response": "CAFÉ"
+        },
+        {
+          "response": "CAFÉ"
+        },
+        {
+          "response": "CAFÉ"
+        },
+        {
+          "response": "K"
+        },
+        {
+          "response": "K"
+        },
+        {
+          "response": "K"
+        },
+        {
+          "response": "K"
+        },
+        {
+          "response": "K"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "CAFÉ",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "CAFÉ",
+        "graders": [
+          {
+            "kind": "notContains",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "CAFÉ",
+        "graders": [
+          {
+            "kind": "startsWith",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c4",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "CAFÉ",
+        "graders": [
+          {
+            "kind": "endsWith",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c5",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "CAFÉ",
+        "graders": [
+          {
+            "kind": "oneOf",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c6",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "K",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c7",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "K",
+        "graders": [
+          {
+            "kind": "notContains",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c8",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "K",
+        "graders": [
+          {
+            "kind": "startsWith",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c9",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "K",
+        "graders": [
+          {
+            "kind": "endsWith",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c10",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "K",
+        "graders": [
+          {
+            "kind": "oneOf",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 10,
+        "passed": 2,
+        "failed": 8,
+        "errored": 0,
+        "passRate": 0.2
+      }
+    ],
+    "calls": {
+      "a": 10
+    }
+  }
+}

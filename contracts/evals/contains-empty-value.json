@@ -1,0 +1,123 @@
+{
+  "name": "contains-empty-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say anything."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": ""
+          },
+          {
+            "kind": "startsWith",
+            "value": ""
+          },
+          {
+            "kind": "endsWith",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say nothing."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": ""
+          },
+          {
+            "kind": "startsWith",
+            "value": ""
+          },
+          {
+            "kind": "endsWith",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "abc"
+        },
+        {
+          "response": ""
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "abc",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          },
+          {
+            "kind": "startsWith",
+            "passed": true
+          },
+          {
+            "kind": "endsWith",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          },
+          {
+            "kind": "startsWith",
+            "passed": true
+          },
+          {
+            "kind": "endsWith",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "no-targets-empty-run",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hi"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [],
+  "expect": {
+    "results": [],
+    "summary": [],
+    "calls": {}
+  }
+}

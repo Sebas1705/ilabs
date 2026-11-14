@@ -1,0 +1,90 @@
+{
+  "name": "summary-first-appearance-order",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "zeta",
+      "script": [
+        {
+          "response": "yes"
+        }
+      ]
+    },
+    {
+      "id": "alpha",
+      "script": [
+        {
+          "response": "no"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "zeta",
+        "status": "pass",
+        "reply": "yes",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c1",
+        "targetId": "alpha",
+        "status": "fail",
+        "reply": "no",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "zeta",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      },
+      {
+        "targetId": "alpha",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "zeta": 1,
+      "alpha": 1
+    }
+  }
+}

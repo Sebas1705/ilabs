@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
         val providersLoader = assets.loaderFor("providers")
         val structuredLoader = assets.loaderFor("structured")
         val contextLoader = assets.loaderFor("context")
+        val evalsLoader = assets.loaderFor("evals")
         setContent {
             ILabsTheme {
                 // Saved state, so the open module survives rotation, process death and "Don't keep activities".
@@ -49,6 +50,11 @@ class MainActivity : ComponentActivity() {
                         val vm: ContextViewModel = viewModel(factory = ContextViewModel.factory(contextLoader))
                         val state by vm.uiState.collectAsStateWithLifecycle()
                         ContextScreen(state, vm::select, vm::setBudget, onBack = { module = null })
+                    }
+                    DemoModule.EVALS -> {
+                        val vm: EvalsViewModel = viewModel(factory = EvalsViewModel.factory(evalsLoader))
+                        val state by vm.uiState.collectAsStateWithLifecycle()
+                        EvalsScreen(state, EvalsActions.of(vm), onBack = { module = null })
                     }
                 }
             }

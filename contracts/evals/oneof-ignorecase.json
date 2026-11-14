@@ -1,0 +1,132 @@
+{
+  "name": "oneof-ignorecase",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "A colour?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "oneOf",
+            "values": [
+              "Red",
+              "Green"
+            ],
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "A colour?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "oneOf",
+            "values": [
+              "Red",
+              "Green"
+            ],
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "A colour?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "oneOf",
+            "values": [
+              "Red",
+              "Green"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "GREEN"
+        },
+        {
+          "response": "BLUE"
+        },
+        {
+          "response": "green"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "GREEN",
+        "graders": [
+          {
+            "kind": "oneOf",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "BLUE",
+        "graders": [
+          {
+            "kind": "oneOf",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "green",
+        "graders": [
+          {
+            "kind": "oneOf",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0.3333333333333333
+      }
+    ],
+    "calls": {
+      "a": 3
+    }
+  }
+}

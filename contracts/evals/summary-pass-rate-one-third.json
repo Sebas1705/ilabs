@@ -1,0 +1,118 @@
+{
+  "name": "summary-pass-rate-one-third",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Agree?"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "equals",
+            "value": "yes"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "yes"
+        },
+        {
+          "response": "no"
+        },
+        {
+          "error": {
+            "kind": "timeout"
+          }
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "yes",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "no",
+        "graders": [
+          {
+            "kind": "equals",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c3",
+        "targetId": "a",
+        "status": "error",
+        "error": "timeout",
+        "graders": []
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 3,
+        "passed": 1,
+        "failed": 1,
+        "errored": 1,
+        "passRate": 0.3333333333333333
+      }
+    ],
+    "calls": {
+      "a": 3
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "jsonequals-array-order",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Two numbers."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": [
+              1,
+              2
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "[2, 1]"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "[2, 1]",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": false,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

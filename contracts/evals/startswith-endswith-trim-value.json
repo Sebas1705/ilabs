@@ -1,0 +1,93 @@
+{
+  "name": "startswith-endswith-trim-value",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi twice."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "startsWith",
+            "value": " Hi ",
+            "trim": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi twice."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "endsWith",
+            "value": " Hi ",
+            "trim": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hi and Hi"
+        },
+        {
+          "response": "Hi and Hi"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Hi and Hi",
+        "graders": [
+          {
+            "kind": "startsWith",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Hi and Hi",
+        "graders": [
+          {
+            "kind": "endsWith",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

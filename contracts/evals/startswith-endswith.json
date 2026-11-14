@@ -1,0 +1,150 @@
+{
+  "name": "startswith-endswith",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Greet the world."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "startsWith",
+            "value": "Hello"
+          },
+          {
+            "kind": "endsWith",
+            "value": "world!"
+          },
+          {
+            "kind": "startsWith",
+            "value": "world"
+          },
+          {
+            "kind": "endsWith",
+            "value": "Hello"
+          },
+          {
+            "kind": "startsWith",
+            "value": "HELLO",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hi there."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "startsWith",
+            "value": "Hi",
+            "trim": true
+          },
+          {
+            "kind": "endsWith",
+            "value": "there",
+            "trim": true
+          },
+          {
+            "kind": "startsWith",
+            "value": "Hi"
+          },
+          {
+            "kind": "endsWith",
+            "value": "there"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hello, world!"
+        },
+        {
+          "response": "  Hi there  "
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "Hello, world!",
+        "graders": [
+          {
+            "kind": "startsWith",
+            "passed": true
+          },
+          {
+            "kind": "endsWith",
+            "passed": true
+          },
+          {
+            "kind": "startsWith",
+            "passed": false
+          },
+          {
+            "kind": "endsWith",
+            "passed": false
+          },
+          {
+            "kind": "startsWith",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "  Hi there  ",
+        "graders": [
+          {
+            "kind": "startsWith",
+            "passed": true
+          },
+          {
+            "kind": "endsWith",
+            "passed": true
+          },
+          {
+            "kind": "startsWith",
+            "passed": false
+          },
+          {
+            "kind": "endsWith",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "contains-ignorecase",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Describe the cat."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "cat",
+            "ignoreCase": true
+          },
+          {
+            "kind": "contains",
+            "value": "cat"
+          },
+          {
+            "kind": "notContains",
+            "value": "Cat",
+            "ignoreCase": true
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "The CAT sat"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "The CAT sat",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          },
+          {
+            "kind": "contains",
+            "passed": false
+          },
+          {
+            "kind": "notContains",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

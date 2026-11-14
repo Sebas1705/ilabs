@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ilabs/context": "workspace:*",
+    "@ilabs/evals": "workspace:*",
     "@ilabs/providers": "workspace:*",
     "@ilabs/structured": "workspace:*",
     "react": "19.3.1",

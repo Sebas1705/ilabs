@@ -25,6 +25,14 @@ internal fun parseStrictJson(text: String, maxDepth: Int): JsonElement? =
         null
     }
 
+private const val MAX_STRICT_DEPTH = 128
+
+/**
+ * RFC 8259 strict parse of [text] as exactly one JSON value: nesting depth limit 128, duplicate keys: last wins.
+ * Returns null when [text] is not strict JSON.
+ */
+fun parseStrict(text: String): JsonElement? = parseStrictJson(text, MAX_STRICT_DEPTH)
+
 private class StrictParser(private val s: String, private val maxDepth: Int) {
     private var i = 0
 

@@ -1,0 +1,93 @@
+{
+  "name": "length-lone-surrogate",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Three characters."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 3,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Three characters."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "length",
+            "min": 3,
+            "max": 3
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "x\ud83dy"
+        },
+        {
+          "response": "\ude00\ud83dA"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "x\ud83dy",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "\ude00\ud83dA",
+        "graders": [
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

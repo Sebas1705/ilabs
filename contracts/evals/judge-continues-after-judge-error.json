@@ -1,0 +1,96 @@
+{
+  "name": "judge-continues-after-judge-error",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a greeting."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          },
+          {
+            "kind": "judge",
+            "rubric": "Is it short?"
+          },
+          {
+            "kind": "contains",
+            "value": "Hello"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hello there!"
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "error": {
+          "kind": "timeout"
+        }
+      },
+      {
+        "response": "PASS"
+      }
+    ]
+  },
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "error",
+        "reply": "Hello there!",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": false,
+            "error": "timeout"
+          },
+          {
+            "kind": "judge",
+            "passed": true
+          },
+          {
+            "kind": "contains",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 0,
+        "errored": 1,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1,
+      "judge": 2
+    },
+    "judgeContains": [
+      "Is it polite?",
+      "Write a greeting.",
+      "Hello there!"
+    ]
+  }
+}

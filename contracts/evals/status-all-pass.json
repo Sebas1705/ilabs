@@ -1,0 +1,69 @@
+{
+  "name": "status-all-pass",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hello"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hello"
+          },
+          {
+            "kind": "length",
+            "max": 20
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hello there"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "hello there",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          },
+          {
+            "kind": "length",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

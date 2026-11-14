@@ -1,0 +1,72 @@
+{
+  "name": "jsonequals-nested-key-order",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Nested."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "value": {
+              "outer": {
+                "a": 1,
+                "b": [
+                  {
+                    "x": 1,
+                    "y": 2
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "{\"outer\": {\"b\": [{\"y\": 2, \"x\": 1}], \"a\": 1}}"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "{\"outer\": {\"b\": [{\"y\": 2, \"x\": 1}], \"a\": 1}}",
+        "graders": [
+          {
+            "kind": "jsonEquals",
+            "passed": true,
+            "issues": []
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

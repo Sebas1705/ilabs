@@ -36,4 +36,7 @@ project(":modules:structured-kotlin").projectDir = file("modules/structured/kotl
 include(":modules:context-kotlin")
 project(":modules:context-kotlin").projectDir = file("modules/context/kotlin")
 
+include(":modules:evals-kotlin")
+project(":modules:evals-kotlin").projectDir = file("modules/evals/kotlin")
+
 include(":demos:android")

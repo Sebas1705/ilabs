@@ -1,0 +1,92 @@
+{
+  "name": "endswith-ignorecase",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Greet the world."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "endsWith",
+            "value": "World",
+            "ignoreCase": true
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Greet the world."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "endsWith",
+            "value": "World"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hello WORLD"
+        },
+        {
+          "response": "Hello WORLD"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Hello WORLD",
+        "graders": [
+          {
+            "kind": "endsWith",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "Hello WORLD",
+        "graders": [
+          {
+            "kind": "endsWith",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0.5
+      }
+    ],
+    "calls": {
+      "a": 2
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "empty-messages-allowed",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "ok"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "ok"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "ok",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

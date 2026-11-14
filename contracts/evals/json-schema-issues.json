@@ -1,0 +1,82 @@
+{
+  "name": "json-schema-issues",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Describe a person in JSON."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "json",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "age": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "{\"age\": -1}"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "{\"age\": -1}",
+        "graders": [
+          {
+            "kind": "json",
+            "passed": false,
+            "issues": [
+              {
+                "path": "/name",
+                "code": "required"
+              },
+              {
+                "path": "/age",
+                "code": "minimum"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

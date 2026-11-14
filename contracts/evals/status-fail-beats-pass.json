@@ -1,0 +1,69 @@
+{
+  "name": "status-fail-beats-pass",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Say hello"
+          }
+        ],
+        "graders": [
+          {
+            "kind": "contains",
+            "value": "hello"
+          },
+          {
+            "kind": "length",
+            "max": 3
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "hello there"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "fail",
+        "reply": "hello there",
+        "graders": [
+          {
+            "kind": "contains",
+            "passed": true
+          },
+          {
+            "kind": "length",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 1
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "name": "judge-order-case-major-target-minor",
+  "suite": {
+    "cases": [
+      {
+        "id": "c1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Greet Ann."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Greet Bob."
+          }
+        ],
+        "graders": [
+          {
+            "kind": "judge",
+            "rubric": "Is it polite?"
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "a",
+      "script": [
+        {
+          "response": "Hi Ann (a)"
+        },
+        {
+          "response": "Hi Bob (a)"
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "script": [
+        {
+          "response": "Hi Ann (b)"
+        },
+        {
+          "response": "Hi Bob (b)"
+        }
+      ]
+    }
+  ],
+  "judge": {
+    "script": [
+      {
+        "response": "PASS"
+      },
+      {
+        "response": "FAIL"
+      },
+      {
+        "response": "PASS"
+      },
+      {
+        "response": "FAIL"
+      }
+    ]
+  },
+  "expect": {
+    "results": [
+      {
+        "caseId": "c1",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Hi Ann (a)",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c1",
+        "targetId": "b",
+        "status": "fail",
+        "reply": "Hi Ann (b)",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": false
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "a",
+        "status": "pass",
+        "reply": "Hi Bob (a)",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "caseId": "c2",
+        "targetId": "b",
+        "status": "fail",
+        "reply": "Hi Bob (b)",
+        "graders": [
+          {
+            "kind": "judge",
+            "passed": false
+          }
+        ]
+      }
+    ],
+    "summary": [
+      {
+        "targetId": "a",
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "errored": 0,
+        "passRate": 1
+      },
+      {
+        "targetId": "b",
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "errored": 0,
+        "passRate": 0
+      }
+    ],
+    "calls": {
+      "a": 2,
+      "b": 2,
+      "judge": 4
+    },
+    "judgeContains": [
+      "Is it polite?",
+      "Greet Ann.",
+      "Hi Ann (a)"
+    ]
+  }
+}
