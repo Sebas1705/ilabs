@@ -1,0 +1,25 @@
+{
+  "name": "window-only-system-too-big",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 10
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "system",
+      "content": "Use English."
+    }
+  ],
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 14
+      }
+    }
+  }
+}

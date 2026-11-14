@@ -1,0 +1,54 @@
+{
+  "name": "summarize-keeprecent-larger-than-list",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 14,
+    "keepRecent": 10
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "unused"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "User turn 2"
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 2"
+        }
+      ],
+      "droppedCount": 2,
+      "tokensBefore": 28,
+      "tokensAfter": 14,
+      "summarized": false,
+      "summaryCalls": 0
+    },
+    "calls": 0
+  }
+}

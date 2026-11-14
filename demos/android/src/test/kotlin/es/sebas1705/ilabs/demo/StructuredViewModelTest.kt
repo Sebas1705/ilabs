@@ -58,14 +58,14 @@ class StructuredViewModelTest {
 
     @Test
     fun groupsFixturesByPrefix() {
-        assertEquals(FixtureGroup.EXTRACT, FixtureGroup.of("extract-plain"))
-        assertEquals(FixtureGroup.VALIDATE, FixtureGroup.of("validate-enum"))
-        assertEquals(FixtureGroup.LOOP, FixtureGroup.of("loop-first-try"))
-        assertEquals(FixtureGroup.OTHER, FixtureGroup.of("something-else"))
+        assertEquals(StructuredGroup.EXTRACT, StructuredGroup.of("extract-plain"))
+        assertEquals(StructuredGroup.VALIDATE, StructuredGroup.of("validate-enum"))
+        assertEquals(StructuredGroup.LOOP, StructuredGroup.of("loop-first-try"))
+        assertEquals(StructuredGroup.OTHER, StructuredGroup.of("something-else"))
         val groups = viewModel().uiState.value.groups
-        assertEquals(listOf(FixtureGroup.EXTRACT, FixtureGroup.VALIDATE, FixtureGroup.LOOP), groups.map { it.first })
+        assertEquals(listOf(StructuredGroup.EXTRACT, StructuredGroup.VALIDATE, StructuredGroup.LOOP), groups.map { it.first })
         assertEquals(fixtureCount, groups.sumOf { it.second.size })
-        assertTrue(groups.first { it.first == FixtureGroup.LOOP }.second.all { it.startsWith("loop-") })
+        assertTrue(groups.first { it.first == StructuredGroup.LOOP }.second.all { it.startsWith("loop-") })
     }
 
     @Test
@@ -107,7 +107,7 @@ class StructuredViewModelTest {
         val failure = outcome.result as FixtureResult.Failure
         assertEquals(ErrorKind.RATE_LIMIT, failure.kind)
         assertNull(failure.issues)
-        assertEquals(ProviderFailure(attempt = 2, kind = ErrorKind.RATE_LIMIT), state.providerFailure)
+        assertEquals(StructuredProviderFailure(attempt = 2, kind = ErrorKind.RATE_LIMIT), state.providerFailure)
     }
 
     @Test

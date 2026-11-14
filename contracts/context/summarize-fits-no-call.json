@@ -1,0 +1,62 @@
+{
+  "name": "summarize-fits-no-call",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 28,
+    "keepRecent": 2
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "unused"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "user",
+          "content": "User turn 1"
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 1"
+        },
+        {
+          "role": "user",
+          "content": "User turn 2"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 28,
+      "tokensAfter": 28,
+      "summarized": false,
+      "summaryCalls": 0
+    },
+    "calls": 0
+  }
+}

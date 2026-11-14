@@ -1,0 +1,30 @@
+{
+  "name": "window-emoji-cost",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 6
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "user",
+      "content": "😀😁😂🤣😃"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "😀😁😂🤣😃"
+        }
+      ],
+      "droppedCount": 1,
+      "tokensBefore": 13,
+      "tokensAfter": 6
+    }
+  }
+}

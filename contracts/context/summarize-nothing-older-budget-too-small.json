@@ -1,0 +1,43 @@
+{
+  "name": "summarize-nothing-older-budget-too-small",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 16,
+    "keepRecent": 4
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "Describe Rome in detail."
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "unused"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 17
+      }
+    },
+    "calls": 0
+  }
+}

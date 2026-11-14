@@ -1,0 +1,34 @@
+{
+  "name": "window-empty-content",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 100
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": ""
+    },
+    {
+      "role": "assistant",
+      "content": "Okay"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": ""
+        },
+        {
+          "role": "assistant",
+          "content": "Okay"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 9,
+      "tokensAfter": 9
+    }
+  }
+}

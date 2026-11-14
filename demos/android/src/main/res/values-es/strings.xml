@@ -43,7 +43,10 @@
     <string name="providers_calls">Llamadas por proveedor</string>
     <string name="providers_no_calls">No hubo llamadas.</string>
     <string name="providers_calls_entry">%1$s: %2$d</string>
-    <string name="providers_calls_entry_spoken">%1$s: %2$d llamadas</string>
+    <plurals name="providers_calls_entry_spoken">
+        <item quantity="one">%1$s: %2$d llamada</item>
+        <item quantity="other">%1$s: %2$d llamadas</item>
+    </plurals>
     <string name="providers_footer">Los escenarios viven en contracts/providers y se comparten con la implementación de TypeScript.</string>
     <string name="providers_load_error">No se pudieron cargar los escenarios: %1$s</string>
     <string name="providers_run_error">No se pudo ejecutar el escenario: %1$s</string>
@@ -54,6 +57,8 @@
     <string name="home_providers_description">Reintentos y respaldo sobre proveedores de IA.</string>
     <string name="home_structured_title">Salida estructurada</string>
     <string name="home_structured_description">JSON que cumple un esquema, reparado cuando no lo cumple.</string>
+    <string name="home_context_title">Ventana de contexto</string>
+    <string name="home_context_description">Mantén una conversación dentro de un presupuesto de tokens.</string>
     <string name="home_open_module">%1$s. %2$s Toca dos veces para abrir.</string>
     <string name="home_back">Módulos</string>
     <string name="home_back_description">Volver a la lista de módulos</string>
@@ -129,5 +134,62 @@
     <plurals name="structured_issues_count">
         <item quantity="one">%1$d problema</item>
         <item quantity="other">%1$d problemas</item>
+    </plurals>
+
+    <string name="context_title">Ventana de contexto</string>
+    <string name="context_subtitle">Mantén una conversación dentro de un presupuesto de tokens: descarta los mensajes más antiguos o sustitúyelos por un resumen. Reproducido desde los escenarios del contrato compartido. Nada sale de tu dispositivo.</string>
+    <string name="context_fixture">Escenario</string>
+    <string name="context_fixture_picker">Escenario: %1$s. Toca dos veces para elegir otro.</string>
+    <string name="context_group_window">Ventana deslizante</string>
+    <string name="context_group_summarize">Resumen</string>
+    <string name="context_group_other">Otros</string>
+    <string name="context_budget">Presupuesto</string>
+    <string name="context_budget_slider">Presupuesto de tokens</string>
+    <string name="context_budget_range">De %1$d a %2$d tokens, el total de la conversación. Arrastra para cambiarlo.</string>
+    <string name="context_budget_range_single">La conversación es demasiado corta para ajustar el presupuesto.</string>
+    <string name="context_budget_fixed">Fijado por el escenario: el proveedor guionizado no se puede reproducir con otro presupuesto.</string>
+    <string name="context_budget_fixed_reason">fijado por el escenario</string>
+    <string name="context_provider_failed">El resumidor falló con</string>
+    <string name="context_totals">Totales</string>
+    <string name="context_tokens_before">Antes</string>
+    <string name="context_tokens_after">Después</string>
+    <string name="context_dropped">Descartados o sustituidos</string>
+    <string name="context_no_result">sin resultado</string>
+    <string name="context_calls">Llamadas al resumidor</string>
+    <string name="context_conversation">Conversación</string>
+    <string name="context_empty">La conversación está vacía: no hay nada que conservar, descartar ni resumir.</string>
+    <string name="context_content_empty">(mensaje vacío)</string>
+    <string name="context_role_system">sistema</string>
+    <string name="context_role_user">usuario</string>
+    <string name="context_role_assistant">asistente</string>
+    <string name="context_label_code">%1$s (%2$s)</string>
+    <string name="context_state_kept">conservado</string>
+    <string name="context_state_dropped">descartado</string>
+    <string name="context_state_replaced">sustituido por el resumen</string>
+    <string name="context_state_new_summary">resumen nuevo</string>
+    <string name="context_row_spoken">Mensaje %1$d de %2$d, %3$s, %4$s. %5$s</string>
+    <string name="context_summarizer">Resumidor</string>
+    <string name="context_request">Petición</string>
+    <string name="context_request_hint">Los dos mensajes que recibe el resumidor: su instrucción y la transcripción que debe comprimir.</string>
+    <string name="context_no_call">No se hizo ninguna llamada: la conversación cabe, o no había nada anterior que resumir.</string>
+    <string name="context_summary">Mensaje de resumen</string>
+    <string name="context_footer">Los escenarios están en contracts/context y se comparten con la implementación en TypeScript. El coste en tokens es una estimación: 4 por mensaje más uno por cada 4 caracteres.</string>
+    <string name="context_load_error">No se pudieron cargar los escenarios: %1$s</string>
+    <string name="context_run_error">No se pudo ejecutar el escenario: %1$s</string>
+    <plurals name="context_tokens">
+        <item quantity="one">%1$d token</item>
+        <item quantity="other">%1$d tokens</item>
+    </plurals>
+    <plurals name="context_messages">
+        <item quantity="one">%1$d mensaje</item>
+        <item quantity="other">%1$d mensajes</item>
+    </plurals>
+    <plurals name="context_calls">
+        <item quantity="one">%1$d llamada</item>
+        <item quantity="other">%1$d llamadas</item>
+    </plurals>
+    <plurals name="context_needs">
+        <item quantity="one">Presupuesto demasiado pequeño: necesita %1$d token</item>
+        <item quantity="other">Presupuesto demasiado pequeño: necesita %1$d tokens</item>
     </plurals>
 </resources>

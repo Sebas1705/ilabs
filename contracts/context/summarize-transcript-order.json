@@ -1,0 +1,72 @@
+{
+  "name": "summarize-transcript-order",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 40,
+    "keepRecent": 2
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "system",
+      "content": "Summary of the earlier conversation:\nPart one."
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    },
+    {
+      "role": "user",
+      "content": "User turn 3"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "They said hello."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nThey said hello."
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 2"
+        },
+        {
+          "role": "user",
+          "content": "User turn 3"
+        }
+      ],
+      "droppedCount": 4,
+      "tokensBefore": 51,
+      "tokensAfter": 32,
+      "summarized": true,
+      "summaryCalls": 1
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Summary of the earlier conversation:\nPart one.",
+      "Bot turn 1",
+      "User turn 2"
+    ]
+  }
+}

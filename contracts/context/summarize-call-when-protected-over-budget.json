@@ -1,0 +1,74 @@
+{
+  "name": "summarize-call-when-protected-over-budget",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 32,
+    "keepRecent": 4
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    },
+    {
+      "role": "user",
+      "content": "User turn 3"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 3"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "They said hello."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nThey said hello."
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 3"
+        }
+      ],
+      "droppedCount": 5,
+      "tokensBefore": 49,
+      "tokensAfter": 32,
+      "summarized": true,
+      "summaryCalls": 1
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Bot turn 1"
+    ]
+  }
+}

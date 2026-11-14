@@ -1,0 +1,38 @@
+{
+  "name": "window-duplicate-messages-counted",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 10
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "Okay"
+    },
+    {
+      "role": "user",
+      "content": "Okay"
+    },
+    {
+      "role": "user",
+      "content": "Okay"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Okay"
+        },
+        {
+          "role": "user",
+          "content": "Okay"
+        }
+      ],
+      "droppedCount": 1,
+      "tokensBefore": 15,
+      "tokensAfter": 10
+    }
+  }
+}

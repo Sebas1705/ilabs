@@ -1,0 +1,33 @@
+{
+  "name": "window-last-too-big",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 16
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "Describe Rome in detail."
+    }
+  ],
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 17
+      }
+    }
+  }
+}

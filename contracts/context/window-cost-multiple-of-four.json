@@ -1,0 +1,50 @@
+{
+  "name": "window-cost-multiple-of-four",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 100
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "Okay"
+    },
+    {
+      "role": "assistant",
+      "content": "Sure!"
+    },
+    {
+      "role": "user",
+      "content": "Thanks!!"
+    },
+    {
+      "role": "assistant",
+      "content": "Good day!"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "Okay"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure!"
+        },
+        {
+          "role": "user",
+          "content": "Thanks!!"
+        },
+        {
+          "role": "assistant",
+          "content": "Good day!"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 24,
+      "tokensAfter": 24
+    }
+  }
+}

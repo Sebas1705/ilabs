@@ -43,7 +43,10 @@
     <string name="providers_calls">Calls per provider</string>
     <string name="providers_no_calls">No calls were made.</string>
     <string name="providers_calls_entry">%1$s: %2$d</string>
-    <string name="providers_calls_entry_spoken">%1$s: %2$d calls</string>
+    <plurals name="providers_calls_entry_spoken">
+        <item quantity="one">%1$s: %2$d call</item>
+        <item quantity="other">%1$s: %2$d calls</item>
+    </plurals>
     <string name="providers_footer">Fixtures live in contracts/providers and are shared with the TypeScript implementation.</string>
     <string name="providers_load_error">Could not load the fixtures: %1$s</string>
     <string name="providers_run_error">Could not run the fixture: %1$s</string>
@@ -54,6 +57,8 @@
     <string name="home_providers_description">Retry and fallback over AI providers.</string>
     <string name="home_structured_title">Structured output</string>
     <string name="home_structured_description">JSON that matches a schema, repaired when it does not.</string>
+    <string name="home_context_title">Context window</string>
+    <string name="home_context_description">Keep a conversation inside a token budget.</string>
     <string name="home_open_module">%1$s. %2$s Double tap to open.</string>
     <string name="home_back">Modules</string>
     <string name="home_back_description">Back to the module list</string>
@@ -129,5 +134,62 @@
     <plurals name="structured_issues_count">
         <item quantity="one">%1$d issue</item>
         <item quantity="other">%1$d issues</item>
+    </plurals>
+
+    <string name="context_title">Context window</string>
+    <string name="context_subtitle">Keep a conversation inside a token budget: drop the oldest messages, or replace them with a summary. Replayed from the shared contract fixtures. Nothing leaves your device.</string>
+    <string name="context_fixture">Fixture</string>
+    <string name="context_fixture_picker">Fixture: %1$s. Double tap to choose another.</string>
+    <string name="context_group_window">Sliding window</string>
+    <string name="context_group_summarize">Summary</string>
+    <string name="context_group_other">Other</string>
+    <string name="context_budget">Budget</string>
+    <string name="context_budget_slider">Token budget</string>
+    <string name="context_budget_range">From %1$d to %2$d tokens, the total of the conversation. Drag to change it.</string>
+    <string name="context_budget_range_single">The conversation is too short to adjust the budget.</string>
+    <string name="context_budget_fixed">Fixed by the fixture: the scripted provider cannot be replayed with another budget.</string>
+    <string name="context_budget_fixed_reason">fixed by the fixture</string>
+    <string name="context_provider_failed">The summarizer failed with</string>
+    <string name="context_totals">Totals</string>
+    <string name="context_tokens_before">Before</string>
+    <string name="context_tokens_after">After</string>
+    <string name="context_dropped">Dropped or replaced</string>
+    <string name="context_no_result">no result</string>
+    <string name="context_calls">Summarizer calls</string>
+    <string name="context_conversation">Conversation</string>
+    <string name="context_empty">The conversation is empty: there is nothing to keep, drop or summarize.</string>
+    <string name="context_content_empty">(empty message)</string>
+    <string name="context_role_system">system</string>
+    <string name="context_role_user">user</string>
+    <string name="context_role_assistant">assistant</string>
+    <string name="context_label_code">%1$s (%2$s)</string>
+    <string name="context_state_kept">kept</string>
+    <string name="context_state_dropped">dropped</string>
+    <string name="context_state_replaced">replaced by the summary</string>
+    <string name="context_state_new_summary">new summary</string>
+    <string name="context_row_spoken">Message %1$d of %2$d, %3$s, %4$s. %5$s</string>
+    <string name="context_summarizer">Summarizer</string>
+    <string name="context_request">Request</string>
+    <string name="context_request_hint">The two messages the summarizer receives: its instruction and the transcript to compress.</string>
+    <string name="context_no_call">No call was made: the conversation fits, or there was nothing older to summarize.</string>
+    <string name="context_summary">Summary message</string>
+    <string name="context_footer">Fixtures live in contracts/context and are shared with the TypeScript implementation. Token costs are estimates: 4 per message plus one per 4 characters.</string>
+    <string name="context_load_error">Could not load the fixtures: %1$s</string>
+    <string name="context_run_error">Could not run the fixture: %1$s</string>
+    <plurals name="context_tokens">
+        <item quantity="one">%1$d token</item>
+        <item quantity="other">%1$d tokens</item>
+    </plurals>
+    <plurals name="context_messages">
+        <item quantity="one">%1$d message</item>
+        <item quantity="other">%1$d messages</item>
+    </plurals>
+    <plurals name="context_calls">
+        <item quantity="one">%1$d call</item>
+        <item quantity="other">%1$d calls</item>
+    </plurals>
+    <plurals name="context_needs">
+        <item quantity="one">Budget too small: needs %1$d token</item>
+        <item quantity="other">Budget too small: needs %1$d tokens</item>
     </plurals>
 </resources>

@@ -1,0 +1,42 @@
+{
+  "name": "window-fits-unchanged",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 30
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "user",
+          "content": "User turn 1"
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 1"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 21,
+      "tokensAfter": 21
+    }
+  }
+}

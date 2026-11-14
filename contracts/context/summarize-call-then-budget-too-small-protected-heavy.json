@@ -1,0 +1,59 @@
+{
+  "name": "summarize-call-then-budget-too-small-protected-heavy",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 24,
+    "keepRecent": 4
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    },
+    {
+      "role": "user",
+      "content": "User turn 3"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 3"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "They said hello."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 32
+      }
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Bot turn 1"
+    ]
+  }
+}

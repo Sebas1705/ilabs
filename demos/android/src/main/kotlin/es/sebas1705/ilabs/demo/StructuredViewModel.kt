@@ -22,7 +22,7 @@ import es.sebas1705.ilabs.structured.parseFixture as parseStructuredFixture
 import es.sebas1705.ilabs.structured.runFixture as runStructuredFixture
 
 /** Fixture groups, in display order; the group is derived from the start of the fixture name. */
-enum class FixtureGroup(val prefix: String) {
+enum class StructuredGroup(val prefix: String) {
     EXTRACT("extract-"),
     VALIDATE("validate-"),
     LOOP("loop-"),
@@ -30,12 +30,12 @@ enum class FixtureGroup(val prefix: String) {
     ;
 
     companion object {
-        fun of(name: String): FixtureGroup = entries.firstOrNull { it != OTHER && name.startsWith(it.prefix) } ?: OTHER
+        fun of(name: String): StructuredGroup = entries.firstOrNull { it != OTHER && name.startsWith(it.prefix) } ?: OTHER
     }
 }
 
 /** A provider error raised by call number `attempt`, which left no trace entry of its own. */
-data class ProviderFailure(val attempt: Int, val kind: ErrorKind)
+data class StructuredProviderFailure(val attempt: Int, val kind: ErrorKind)
 
 /** What the screen renders. `fixture` carries schema, request, setup and script; `outcome` the replayed run. */
 data class StructuredUiState(
@@ -49,15 +49,15 @@ data class StructuredUiState(
     val runError: String? = null,
 ) {
     /** Names grouped by prefix, in group order, empty groups left out. */
-    val groups: List<Pair<FixtureGroup, List<String>>>
-        get() = names.groupBy(FixtureGroup::of).toList().sortedBy { it.first.ordinal }
+    val groups: List<Pair<StructuredGroup, List<String>>>
+        get() = names.groupBy(StructuredGroup::of).toList().sortedBy { it.first.ordinal }
 
     /** Set when the final result is a provider error whose call has no trace entry (attempts > trace size). */
-    val providerFailure: ProviderFailure?
+    val providerFailure: StructuredProviderFailure?
         get() {
             val run = outcome ?: return null
             val failure = run.result as? StructuredResult.Failure ?: return null
-            return if (failure.issues == null && run.attempts > run.trace.size) ProviderFailure(run.attempts, failure.kind) else null
+            return if (failure.issues == null && run.attempts > run.trace.size) StructuredProviderFailure(run.attempts, failure.kind) else null
         }
 }
 

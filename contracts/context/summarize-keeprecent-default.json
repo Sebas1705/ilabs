@@ -1,0 +1,82 @@
+{
+  "name": "summarize-keeprecent-default",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 46
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    },
+    {
+      "role": "user",
+      "content": "User turn 3"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 3"
+    },
+    {
+      "role": "user",
+      "content": "User turn 4"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "They said hello."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nThey said hello."
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 2"
+        },
+        {
+          "role": "user",
+          "content": "User turn 3"
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 3"
+        },
+        {
+          "role": "user",
+          "content": "User turn 4"
+        }
+      ],
+      "droppedCount": 3,
+      "tokensBefore": 49,
+      "tokensAfter": 46,
+      "summarized": true,
+      "summaryCalls": 1
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Bot turn 1",
+      "User turn 2"
+    ]
+  }
+}

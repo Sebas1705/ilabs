@@ -1,0 +1,16 @@
+{
+  "name": "window-empty-list",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 1
+  },
+  "messages": [],
+  "expect": {
+    "result": {
+      "messages": [],
+      "droppedCount": 0,
+      "tokensBefore": 0,
+      "tokensAfter": 0
+    }
+  }
+}

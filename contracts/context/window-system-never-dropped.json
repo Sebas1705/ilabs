@@ -1,0 +1,42 @@
+{
+  "name": "window-system-never-dropped",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 20
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful travel guide."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful travel guide."
+        },
+        {
+          "role": "user",
+          "content": "User turn 2"
+        }
+      ],
+      "droppedCount": 2,
+      "tokensBefore": 33,
+      "tokensAfter": 19
+    }
+  }
+}

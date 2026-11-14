@@ -1,0 +1,29 @@
+{
+  "name": "window-trailing-system",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 17
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Rome was founded in 753 BC."
+    },
+    {
+      "role": "system",
+      "content": "Be brief."
+    }
+  ],
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 18
+      }
+    }
+  }
+}

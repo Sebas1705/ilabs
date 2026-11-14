@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 enum class DemoModule(@StringRes val title: Int, @StringRes val description: Int) {
     PROVIDERS(R.string.home_providers_title, R.string.home_providers_description),
     STRUCTURED(R.string.home_structured_title, R.string.home_structured_description),
+    CONTEXT(R.string.home_context_title, R.string.home_context_description),
 }
 
 /** A text button for the top bar that returns to the module list; the system back gesture does the same. */

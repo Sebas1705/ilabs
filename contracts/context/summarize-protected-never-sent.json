@@ -1,0 +1,71 @@
+{
+  "name": "summarize-protected-never-sent",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 36,
+    "keepRecent": 2
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "user",
+      "content": "Keep this one."
+    },
+    {
+      "role": "assistant",
+      "content": "Noted, will do."
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "They said hello."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nThey said hello."
+        },
+        {
+          "role": "user",
+          "content": "Keep this one."
+        },
+        {
+          "role": "assistant",
+          "content": "Noted, will do."
+        }
+      ],
+      "droppedCount": 3,
+      "tokensBefore": 37,
+      "tokensAfter": 34,
+      "summarized": true,
+      "summaryCalls": 1
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Bot turn 1",
+      "User turn 2"
+    ],
+    "requestExcludes": [
+      "Keep this one.",
+      "Noted, will do."
+    ]
+  }
+}

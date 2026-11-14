@@ -1,0 +1,24 @@
+{
+  "name": "summarize-empty-list",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 1,
+    "keepRecent": 2
+  },
+  "messages": [],
+  "provider": {
+    "id": "a",
+    "script": []
+  },
+  "expect": {
+    "result": {
+      "messages": [],
+      "droppedCount": 0,
+      "tokensBefore": 0,
+      "tokensAfter": 0,
+      "summarized": false,
+      "summaryCalls": 0
+    },
+    "calls": 0
+  }
+}

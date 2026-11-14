@@ -1,0 +1,52 @@
+{
+  "name": "summarize-budget-too-small-after-call",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 30,
+    "keepRecent": 1
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "They said hello."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 32
+      }
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Bot turn 1",
+      "User turn 2"
+    ]
+  }
+}

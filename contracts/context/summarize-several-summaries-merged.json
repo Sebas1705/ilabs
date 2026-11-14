@@ -1,0 +1,72 @@
+{
+  "name": "summarize-several-summaries-merged",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 45,
+    "keepRecent": 2
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Summary of the earlier conversation:\nPart one."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "system",
+      "content": "Summary of the earlier conversation:\nPart two."
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "Parts one and two."
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nParts one and two."
+        },
+        {
+          "role": "user",
+          "content": "User turn 2"
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 2"
+        }
+      ],
+      "droppedCount": 4,
+      "tokensBefore": 60,
+      "tokensAfter": 32,
+      "summarized": true,
+      "summaryCalls": 1
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "Summary of the earlier conversation:\nPart one.",
+      "User turn 1",
+      "Summary of the earlier conversation:\nPart two.",
+      "Bot turn 1"
+    ]
+  }
+}

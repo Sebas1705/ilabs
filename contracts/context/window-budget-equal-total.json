@@ -1,0 +1,50 @@
+{
+  "name": "window-budget-equal-total",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 28
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "user",
+          "content": "User turn 1"
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 1"
+        },
+        {
+          "role": "user",
+          "content": "User turn 2"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 28,
+      "tokensAfter": 28
+    }
+  }
+}

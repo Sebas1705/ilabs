@@ -1,0 +1,34 @@
+{
+  "name": "window-only-system-fits",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 20
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "system",
+      "content": "Use English."
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "system",
+          "content": "Use English."
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 14,
+      "tokensAfter": 14
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "summarize-fits-keeps-summaries",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 50,
+    "keepRecent": 1
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Summary of the earlier conversation:\nPart one."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "system",
+      "content": "Summary of the earlier conversation:\nPart two."
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "unused"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nPart one."
+        },
+        {
+          "role": "user",
+          "content": "User turn 1"
+        },
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nPart two."
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 1"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 46,
+      "tokensAfter": 46,
+      "summarized": false,
+      "summaryCalls": 0
+    },
+    "calls": 0
+  }
+}

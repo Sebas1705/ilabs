@@ -78,6 +78,7 @@ androidComponents {
 dependencies {
     implementation(project(":modules:providers-kotlin"))
     implementation(project(":modules:structured-kotlin"))
+    implementation(project(":modules:context-kotlin"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.foundation)

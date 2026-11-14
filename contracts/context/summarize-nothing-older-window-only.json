@@ -1,0 +1,58 @@
+{
+  "name": "summarize-nothing-older-window-only",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 21,
+    "keepRecent": 3
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "unused"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 1"
+        },
+        {
+          "role": "user",
+          "content": "User turn 2"
+        }
+      ],
+      "droppedCount": 1,
+      "tokensBefore": 28,
+      "tokensAfter": 21,
+      "summarized": false,
+      "summaryCalls": 0
+    },
+    "calls": 0
+  }
+}

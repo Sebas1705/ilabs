@@ -1,0 +1,58 @@
+{
+  "name": "summarize-summaries-alone-no-call",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 32,
+    "keepRecent": 2
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "system",
+      "content": "Summary of the earlier conversation:\nThey said hello."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "response": "unused"
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "Be brief."
+        },
+        {
+          "role": "system",
+          "content": "Summary of the earlier conversation:\nThey said hello."
+        },
+        {
+          "role": "assistant",
+          "content": "Bot turn 1"
+        }
+      ],
+      "droppedCount": 1,
+      "tokensBefore": 39,
+      "tokensAfter": 32,
+      "summarized": false,
+      "summaryCalls": 0
+    },
+    "calls": 0
+  }
+}

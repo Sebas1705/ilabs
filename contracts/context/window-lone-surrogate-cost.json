@@ -1,0 +1,26 @@
+{
+  "name": "window-lone-surrogate-cost",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 100
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "\udc00\ud800abc"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "\udc00\ud800abc"
+        }
+      ],
+      "droppedCount": 0,
+      "tokensBefore": 6,
+      "tokensAfter": 6
+    }
+  }
+}

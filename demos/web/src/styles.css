@@ -183,3 +183,26 @@ pre.json { white-space: pre; overflow-wrap: normal; }
 .field select { text-overflow: ellipsis; }
 
 main:focus { outline: none; }
+
+/* Context page */
+.slider-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; font-weight: 600; }
+.slider { width: 100%; min-height: 44px; margin: 0.25rem 0; accent-color: var(--accent); }
+.slider:disabled { opacity: 0.6; }
+.status { margin: 0.5rem 0 0; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; overflow-wrap: anywhere; }
+.status:empty { display: none; }
+.status-warn { background: var(--warn-bg); color: var(--warn-fg); border-color: var(--warn-fg); font-weight: 600; }
+.ctx-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.ctx-row { min-width: 0; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; }
+.ctx-dropped { border-style: dashed; }
+.ctx-replaced { border-style: dotted; }
+.ctx-summary { border-width: 2px; border-color: var(--accent); }
+.ctx-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; }
+.ctx-head .state { margin-left: auto; font-weight: 600; }
+.ctx-content { margin: 0.25rem 0; }
+.ctx-dropped .ctx-content, .ctx-replaced .ctx-content { color: var(--muted); }
+.tokenbar { display: block; height: 6px; border-radius: 3px; background: var(--bg); border: 1px solid var(--border); overflow: hidden; }
+.tokenbar > span { display: block; height: 100%; background: var(--accent); }
+.ctx-dropped .tokenbar > span, .ctx-replaced .tokenbar > span { background: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .tokenbar > span { transition: width 0.15s; }
+}

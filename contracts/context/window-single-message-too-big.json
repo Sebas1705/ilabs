@@ -1,0 +1,21 @@
+{
+  "name": "window-single-message-too-big",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 9
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "Describe Rome in detail."
+    }
+  ],
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "budget_too_small",
+        "required": 10
+      }
+    }
+  }
+}

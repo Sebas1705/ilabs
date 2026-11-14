@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -82,12 +83,14 @@ fun CodeBlock(text: String, modifier: Modifier = Modifier) {
         contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
         shape = RoundedCornerShape(8.dp),
     ) {
-        Text(
-            text,
-            fontFamily = FontFamily.Monospace,
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(10.dp),
-        )
+        SelectionContainer {
+            Text(
+                text,
+                fontFamily = FontFamily.Monospace,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(10.dp),
+            )
+        }
     }
 }
 
@@ -202,7 +205,7 @@ private fun RepairStep() {
 
 /** The call that raised a provider error has no reply, so it gets a row of its own, in words as well as colour. */
 @Composable
-private fun ProviderFailureRow(failure: ProviderFailure) {
+private fun StructuredProviderFailureRow(failure: StructuredProviderFailure) {
     val status = ILabsTheme.status
     val kind = stringResource(R.string.structured_label_code, outcomeLabel(failure.kind.wire), failure.kind.wire)
     val text = stringResource(R.string.structured_provider_failed, failure.attempt, kind)
@@ -221,7 +224,7 @@ private fun ProviderFailureRow(failure: ProviderFailure) {
 
 /** One block per recorded attempt, a repair step between consecutive ones, and a final row for a provider failure. */
 @Composable
-fun AttemptTimeline(trace: List<AttemptTrace>, failure: ProviderFailure?, modifier: Modifier = Modifier) {
+fun AttemptTimeline(trace: List<AttemptTrace>, failure: StructuredProviderFailure?, modifier: Modifier = Modifier) {
     if (trace.isEmpty() && failure == null) {
         Text(stringResource(R.string.structured_no_attempts), color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = modifier)
         return
@@ -237,6 +240,6 @@ fun AttemptTimeline(trace: List<AttemptTrace>, failure: ProviderFailure?, modifi
             }
             if (index < trace.size - 1 || failure != null) RepairStep()
         }
-        failure?.let { ProviderFailureRow(it) }
+        failure?.let { StructuredProviderFailureRow(it) }
     }
 }

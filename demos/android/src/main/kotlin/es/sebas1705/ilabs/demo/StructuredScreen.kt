@@ -122,16 +122,16 @@ private fun Header(state: StructuredUiState, onSelect: (String) -> Unit) {
 }
 
 @Composable
-private fun groupLabel(group: FixtureGroup): String = when (group) {
-    FixtureGroup.EXTRACT -> stringResource(R.string.structured_group_extract)
-    FixtureGroup.VALIDATE -> stringResource(R.string.structured_group_validate)
-    FixtureGroup.LOOP -> stringResource(R.string.structured_group_loop)
-    FixtureGroup.OTHER -> stringResource(R.string.structured_group_other)
+private fun groupLabel(group: StructuredGroup): String = when (group) {
+    StructuredGroup.EXTRACT -> stringResource(R.string.structured_group_extract)
+    StructuredGroup.VALIDATE -> stringResource(R.string.structured_group_validate)
+    StructuredGroup.LOOP -> stringResource(R.string.structured_group_loop)
+    StructuredGroup.OTHER -> stringResource(R.string.structured_group_other)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun FixturePicker(groups: List<Pair<FixtureGroup, List<String>>>, selected: String, onSelect: (String) -> Unit) {
+private fun FixturePicker(groups: List<Pair<StructuredGroup, List<String>>>, selected: String, onSelect: (String) -> Unit) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     val description = stringResource(R.string.structured_fixture_picker, selected)
     ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {

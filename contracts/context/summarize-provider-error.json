@@ -1,0 +1,62 @@
+{
+  "name": "summarize-provider-error",
+  "setup": {
+    "kind": "summarize",
+    "maxTokens": 40,
+    "keepRecent": 2
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Be brief."
+    },
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 1"
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 2"
+    },
+    {
+      "role": "user",
+      "content": "User turn 3"
+    },
+    {
+      "role": "assistant",
+      "content": "Bot turn 3"
+    }
+  ],
+  "provider": {
+    "id": "a",
+    "script": [
+      {
+        "error": {
+          "kind": "rate_limit"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "result": {
+      "error": {
+        "kind": "rate_limit"
+      }
+    },
+    "calls": 1,
+    "transcriptContains": [
+      "User turn 1",
+      "Bot turn 1",
+      "User turn 2",
+      "Bot turn 2"
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "window-stops-at-first-nonfitting",
+  "setup": {
+    "kind": "window",
+    "maxTokens": 16
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "User turn 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Rome was founded in 753 BC."
+    },
+    {
+      "role": "user",
+      "content": "User turn 2"
+    }
+  ],
+  "expect": {
+    "result": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "User turn 2"
+        }
+      ],
+      "droppedCount": 2,
+      "tokensBefore": 25,
+      "tokensAfter": 7
+    }
+  }
+}

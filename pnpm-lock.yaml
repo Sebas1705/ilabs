@@ -168,6 +168,9 @@ importers:
 
   demos/web:
     dependencies:
+      '@ilabs/context':
+        specifier: workspace:*
+        version: link:../../modules/context/ts
       '@ilabs/providers':
         specifier: workspace:*
         version: link:../../modules/providers/ts
@@ -211,6 +214,22 @@ importers:
       vite:
         specifier: 8.3.7
         version: 8.3.7(@types/node@26.6.6)
+      vitest:
+        specifier: 5.1.0
+        version: 5.1.0(@types/node@26.6.6)(jsdom@31.0.0)(vite@8.3.7(@types/node@26.6.6))
+
+  modules/context/ts:
+    dependencies:
+      '@ilabs/providers':
+        specifier: workspace:*
+        version: link:../../providers/ts
+    devDependencies:
+      '@types/node':
+        specifier: 26.6.6
+        version: 26.6.6
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
       vitest:
         specifier: 5.1.0
         version: 5.1.0(@types/node@26.6.6)(jsdom@31.0.0)(vite@8.3.7(@types/node@26.6.6))
